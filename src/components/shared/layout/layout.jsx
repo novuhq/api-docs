@@ -13,13 +13,14 @@ const Layout = ({ children, pageContext, location }) => {
     const offsetTop = window.pageYOffset;
 
     sections.forEach((section) => {
+      const headerHeight = document.querySelector('header').offsetHeight;
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
       const sectionBottom = sectionTop + sectionHeight;
 
       if (
-        offsetTop >= sectionTop &&
-        offsetTop < sectionBottom &&
+        offsetTop + headerHeight >= sectionTop &&
+        offsetTop + headerHeight < sectionBottom &&
         window.history.state?.id !== section.id
       ) {
         window.history.replaceState(
@@ -54,7 +55,7 @@ const Layout = ({ children, pageContext, location }) => {
     <>
       <SEO />
       <Header menuItems={pageContext.menu} />
-      <div className="container relative flex">
+      <div className="container flex">
         <Navigation items={pageContext.menu} location={location} />
         <div className="min-w-0 max-w-none flex-auto pb-16 pt-16 pl-8 lg:pl-0">
           <main>{children}</main>

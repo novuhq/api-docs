@@ -24,7 +24,7 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
       {hasSubParameters && (
         <div
           className={clsx(
-            'mt-3 inline-block rounded-sm border border-gray-10 transition-all duration-200 dark:border-gray-4',
+            'mt-3 inline-block rounded-sm border border-gray-10 outline-none transition-all duration-200 dark:border-gray-4',
             {
               'w-full': isOpen,
             }

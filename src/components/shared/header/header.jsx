@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Link from 'components/shared/link';
 import LINKS from 'constants/links';
+import ArrowIcon from 'icons/arrow.inline.svg';
 import Logo from 'images/logo.inline.svg';
 
 import MoonIcon from './images/moon.inline.svg';
@@ -25,6 +26,24 @@ const Header = ({ menuItems }) => {
     window.location.hash = value;
   };
 
+  const handleChangeActiveItem = () => {
+    const { hash } = window.location;
+    setSelectValue(hash);
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('changeUrl', handleChangeActiveItem);
+
+      return () => {
+        window.removeEventListener('changeUrl', handleChangeActiveItem);
+      };
+    }
+
+    return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <header className="safe-paddings fixed top-0 left-0 right-0 z-50 w-full border-b border-gray-10 bg-white dark:border-gray-3 dark:bg-black">
       <div className="container flex h-16 items-center justify-between">
@@ -34,23 +53,27 @@ const Header = ({ menuItems }) => {
         </Link>
 
         <div className="flex space-x-3.5">
-          <select
-            className="hidden flex-wrap bg-transparent pr-2 text-right text-gray-8 outline-none lg:block sm:max-w-[180px] xs:max-w-[100px]"
-            value={selectValue}
-            onChange={handleSelectChange}
-          >
-            {menuItems.map(({ label, subItems }, index) => (
-              <optgroup label={label} key={index}>
-                {subItems.map(({ label, path }, index) => (
-                  <option value={`#${path}`} key={index}>
-                    {label}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
+          <div className="relative z-10 hidden items-center lg:flex">
+            <select
+              className="appearance-none flex-wrap bg-transparent pr-4 text-right text-gray-2 outline-none dark:text-gray-8 sm:max-w-[180px] xs:max-w-[100px]"
+              value={selectValue}
+              onChange={handleSelectChange}
+            >
+              {menuItems.map(({ label, subItems }, index) => (
+                <optgroup label={label} key={index}>
+                  {subItems.map(({ label, path }, index) => (
+                    <option value={`#${path}`} key={index}>
+                      {label}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+            <ArrowIcon className="absolute right-0 -z-10 mt-0.5 h-1.5 dark:text-gray-8" />
+          </div>
+
           <ul>
-            <li aria-hidden>
+            <li>
               <button
                 className="block transition-colors duration-200 hover:text-secondary-2 dark:hidden"
                 type="button"

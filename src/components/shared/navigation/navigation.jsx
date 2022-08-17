@@ -40,7 +40,7 @@ const Navigation = ({ items, location }) => {
   }, []);
 
   return (
-    <div className="before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-white dark:before:hidden lg:hidden">
+    <div className="relative before:absolute before:top-0 before:right-full before:h-full before:w-screen before:bg-white dark:before:hidden lg:hidden">
       <div className="navigation scrollbar-hidden sticky top-0 h-full max-h-screen overflow-y-auto border-r border-gray-10 bg-white py-16 dark:border-gray-3 dark:bg-black">
         <nav className="w-72 py-5 pr-10">
           <ul className="mt-3.5 space-y-5">

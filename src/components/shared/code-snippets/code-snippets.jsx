@@ -70,10 +70,10 @@ const CodeSnippets = ({ className, title, items }) => {
 
   return (
     <div className={clsx('rounded-md border border-gray-10 dark:border-none', className)}>
-      <div className="flex h-10 items-center justify-between rounded-t border-b border-gray-10 bg-white px-5 dark:border-none dark:bg-[#141414]">
+      <div className="flex h-10 items-center justify-between space-x-1.5 rounded-t border-b border-gray-10 bg-white px-5 dark:border-none dark:bg-[#141414]">
         <span className="text-xs font-bold uppercase text-gray-2 dark:text-gray-8">{title}</span>
 
-        <div className="flex space-x-7">
+        <div className="flex flex-shrink-0 space-x-7">
           <div className="relative z-10 flex items-center">
             <select
               className="w-full appearance-none bg-transparent pr-4 text-sm text-gray-2 outline-none dark:text-gray-8"
@@ -91,6 +91,7 @@ const CodeSnippets = ({ className, title, items }) => {
           <button
             className="group relative flex items-center justify-center"
             type="button"
+            aria-label="Copy"
             onClick={handleCopy}
           >
             <AnimatePresence>

@@ -78,6 +78,7 @@ const CodeSnippets = ({ className, language, title, content }) => {
           <button
             className="group relative flex items-center justify-center"
             type="button"
+            aria-label="Copy"
             onClick={handleCopy}
           >
             <AnimatePresence>
