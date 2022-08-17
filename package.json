@@ -27,6 +27,7 @@
     "framer-motion": "^6.3.11",
     "gatsby": "^4.16.0",
     "gatsby-plugin-canonical-urls": "^4.16.0",
+    "gatsby-plugin-gatsby-cloud": "^4.21.0",
     "gatsby-plugin-image": "^2.16.1",
     "gatsby-transformer-remark": "^5.19.0",
     "prop-types": "^15.8.1",
