@@ -11,7 +11,6 @@ const response = await fetch('https://api.novu.app/v1/events/trigger', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer <YOUR_API_KEY>',
   },
   body: JSON.stringify({
     name: 'Novu',
@@ -28,15 +27,17 @@ console.log(body);
 ```
 
 ```bash label=cURL
-curl -X POST \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer <YOUR_API_KEY>' \
+curl -X POST
+  -H "Content-Type: application/json"
   -d '{
     "name": "Novu",
     "payload": {
       "test": "test"
     },
     "to": "to",
+    "transactionId": "transactionId"
+  }'
+  https://api.novu.app/v1/events/trigger
 ```
 
 ```python label=Python
@@ -51,7 +52,6 @@ response = requests.post('https://api.novu.app/v1/events/trigger', json={
   'transactionId': 'transactionId',
 }, headers={
   'Content-Type': 'application/json',
-  'Authorization': 'Bearer <YOUR_API_KEY>',
 })
 
 print(response.text)
