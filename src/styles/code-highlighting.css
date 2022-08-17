@@ -1,0 +1,46 @@
+code {
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    @apply text-[#E51A5E] dark:text-[#FF4C88];
+  }
+
+  .token.function,
+  .token.property {
+    @apply text-[#E57300] dark:text-[#FFB366];
+  }
+
+  .token.operator,
+  .token.class-name,
+  .token.punctuation {
+    @apply text-black dark:text-white;
+  }
+
+  .token.tag,
+  .token.boolean,
+  .token.number,
+  .token.deleted,
+  .token.null {
+    @apply text-[#AA00FF] dark:text-secondary-1;
+  }
+
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    @apply text-[#22C358] dark:text-[#AAFF80];
+  }
+
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    @apply text-gray-8 dark:text-gray-6;
+  }
+}
+
+.react-syntax-highlighter-line-number {
+  @apply mr-4 w-5 !min-w-0 !pr-0 !text-center text-gray-8 dark:text-gray-6;
+}

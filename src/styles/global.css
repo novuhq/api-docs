@@ -1,0 +1,6 @@
+@layer base {
+  body {
+    @apply min-w-[320px] bg-[#FAFAFA] font-sans text-base leading-normal text-black antialiased dark:bg-black dark:text-white;
+    -webkit-tap-highlight-color: transparent;
+  }
+}

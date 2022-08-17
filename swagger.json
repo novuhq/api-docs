@@ -1,0 +1,1399 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1/notification-templates": {
+      "get": {
+        "operationId": "NotificationTemplateController_getNotificationTemplates",
+        "summary": "Get notification templates",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotificationTemplateResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Notification templates"]
+      },
+      "post": {
+        "operationId": "NotificationTemplateController_createNotificationTemplates",
+        "summary": "Create notification template",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateNotificationTemplateRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotificationTemplateResponse" }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotificationTemplateResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Notification templates"]
+      }
+    },
+    "/v1/notification-templates/{templateId}": {
+      "put": {
+        "operationId": "NotificationTemplateController_updateTemplateById",
+        "summary": "Update notification template",
+        "parameters": [
+          { "name": "templateId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateNotificationTemplateRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotificationTemplateResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Notification templates"]
+      },
+      "delete": {
+        "operationId": "NotificationTemplateController_deleteTemplateById",
+        "summary": "Delete notification template",
+        "parameters": [
+          { "name": "templateId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "boolean" } } }
+          }
+        },
+        "tags": ["Notification templates"]
+      },
+      "get": {
+        "operationId": "NotificationTemplateController_getNotificationTemplateById",
+        "summary": "Get notification template",
+        "parameters": [
+          { "name": "templateId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotificationTemplateResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Notification templates"]
+      }
+    },
+    "/v1/notification-templates/{templateId}/status": {
+      "put": {
+        "operationId": "NotificationTemplateController_changeActiveStatus",
+        "summary": "Update notification template status",
+        "parameters": [
+          { "name": "templateId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ChangeTemplateStatusRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotificationTemplateResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Notification templates"]
+      }
+    },
+    "/v1/events/trigger": {
+      "post": {
+        "operationId": "EventsController_trackEvent",
+        "summary": "Trigger event",
+        "description": "Trigger event to send notifications to subscribers",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/TriggerEventRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TriggerEventResponseDto" }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "object" } } }
+          }
+        },
+        "tags": ["Event"]
+      }
+    },
+    "/v1/events/trigger/broadcast": {
+      "post": {
+        "operationId": "EventsController_trackEventToAll",
+        "summary": "Trigger event for all subscribers",
+        "description": "Trigger event to send notifications to all subscribers",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/TriggerEventToAllRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TriggerEventResponseDto" }
+              }
+            },
+            "description": ""
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TriggerEventResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Event"]
+      }
+    },
+    "/v1/events/trigger/{transactionId}": {
+      "delete": {
+        "operationId": "EventsController_cancelDigest",
+        "summary": "Cancel triggered event",
+        "description": "Cancel trigger with workflow containing running digest node",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": { "application/json": { "schema": { "type": "boolean" } } }
+          }
+        },
+        "tags": ["Event"]
+      }
+    },
+    "/v1/widgets/session/initialize": {
+      "post": {
+        "operationId": "WidgetsController_sessionInitialize",
+        "summary": "Initialize widget session",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SessionInitializeRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SessionInitializeResponseDto" }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SessionInitializeResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/notifications/feed": {
+      "get": {
+        "operationId": "WidgetsController_getNotificationsFeed",
+        "summary": "Get notifications in feed",
+        "parameters": [
+          { "name": "page", "required": true, "in": "query", "schema": { "type": "number" } },
+          { "name": "seen", "required": true, "in": "query", "schema": { "type": "boolean" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/MessageResponseDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/notifications/unseen": {
+      "get": {
+        "operationId": "WidgetsController_getUnseenCount",
+        "summary": "Get unseen count",
+        "parameters": [
+          { "name": "seen", "required": true, "in": "query", "schema": { "type": "boolean" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UnseenCountResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/messages/{messageId}/seen": {
+      "post": {
+        "operationId": "WidgetsController_markMessageAsSeen",
+        "summary": "Mark message as seen",
+        "parameters": [
+          { "name": "messageId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageResponseDto" }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/MessageEntity" } }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/messages/{messageId}/actions/{type}": {
+      "post": {
+        "operationId": "WidgetsController_markActionAsSeen",
+        "summary": "Mark action as seen",
+        "parameters": [
+          { "name": "messageId", "required": true, "in": "path", "schema": { "type": "string" } },
+          { "name": "type", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageResponseDto" }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/MessageEntity" } }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/organization": {
+      "get": {
+        "operationId": "WidgetsController_getOrganizationData",
+        "summary": "Get organization",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/OrganizationResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/preferences": {
+      "get": {
+        "operationId": "WidgetsController_getSubscriberPreference",
+        "summary": "Get subscriber preference",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UpdateSubscriberPreferenceResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/preference/{templateId}": {
+      "patch": {
+        "operationId": "WidgetsController_updateSubscriberPreference",
+        "summary": "Update subscriber preference from widget",
+        "parameters": [
+          { "name": "templateId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSubscriberPreferenceRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UpdateSubscriberPreferenceResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/widgets/usage/log": {
+      "post": {
+        "operationId": "WidgetsController_logUsage",
+        "summary": "Log usage",
+        "description": "Endpoint to log usage of widget",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/LogUsageRequestDto" } }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LogUsageResponseDto" }
+              }
+            }
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LogUsageResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Widgets"]
+      }
+    },
+    "/v1/subscribers": {
+      "get": {
+        "operationId": "SubscribersController_getSubscribers",
+        "summary": "Get subscribers",
+        "description": "Get subscribers paginated",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubscribersResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      },
+      "post": {
+        "operationId": "SubscribersController_createSubscriber",
+        "summary": "Create subscriber",
+        "description": "Create subscriber with your internal id for subscriber",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateSubscriberRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubscriberResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      }
+    },
+    "/v1/subscribers/{subscriberId}": {
+      "get": {
+        "operationId": "SubscribersController_getSubscriber",
+        "summary": "Get subscriber",
+        "description": "Get subscriber by your internal id for subscriber",
+        "parameters": [
+          { "name": "subscriberId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubscriberResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      },
+      "put": {
+        "operationId": "SubscribersController_updateSubscriber",
+        "summary": "Update subscriber",
+        "description": "Update subscriber with your internal id for subscriber",
+        "parameters": [
+          { "name": "subscriberId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSubscriberRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubscriberResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      },
+      "delete": {
+        "operationId": "SubscribersController_removeSubscriber",
+        "summary": "Delete subscriber",
+        "description": "Delete subscriber with your internal id for subscriber",
+        "parameters": [
+          { "name": "subscriberId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DeleteSubscriberResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      }
+    },
+    "/v1/subscribers/{subscriberId}/credentials": {
+      "put": {
+        "operationId": "SubscribersController_updateSubscriberChannel",
+        "summary": "Update subscriber channel details",
+        "description": "Update subscribers channel details with your internal id for subscriber",
+        "parameters": [
+          { "name": "subscriberId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSubscriberChannelRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SubscriberResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      }
+    },
+    "/v1/subscribers/{subscriberId}/preferences": {
+      "get": {
+        "operationId": "SubscribersController_getSubscriberPreference",
+        "summary": "Get subscriber preferences",
+        "parameters": [
+          { "name": "subscriberId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UpdateSubscriberPreferenceResponseDto" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      }
+    },
+    "/v1/subscribers/{subscriberId}/preference/{templateId}": {
+      "patch": {
+        "operationId": "SubscribersController_updateSubscriberPreference",
+        "summary": "Update subscriber preference",
+        "parameters": [
+          {
+            "name": "subscriberId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          { "name": "templateId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSubscriberPreferenceRequestDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UpdateSubscriberPreferenceResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["Subscribers"]
+      }
+    }
+  },
+  "info": {
+    "title": "Novu API",
+    "description": "The Novu API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    { "name": "Activity", "description": "" },
+    { "name": "Auth", "description": "" },
+    { "name": "Changes", "description": "" },
+    { "name": "Channels", "description": "" },
+    { "name": "Environments", "description": "" },
+    { "name": "Event", "description": "" },
+    { "name": "Feeds", "description": "" },
+    { "name": "Integrations", "description": "" },
+    { "name": "Invites", "description": "" },
+    { "name": "Notification groups", "description": "" },
+    { "name": "Notification templates", "description": "" },
+    { "name": "Organizations", "description": "" },
+    { "name": "Storage", "description": "" },
+    { "name": "Subscribers", "description": "" },
+    { "name": "Users", "description": "" },
+    { "name": "Widgets", "description": "" }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "NotificationGroup": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "_environmentId": { "type": "string" },
+          "_organizationId": { "type": "string" },
+          "_parentId": { "type": "string" }
+        },
+        "required": ["name", "_environmentId", "_organizationId"]
+      },
+      "PreferenceChannels": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "boolean" },
+          "sms": { "type": "boolean" },
+          "in_app": { "type": "boolean" },
+          "direct": { "type": "boolean" },
+          "push": { "type": "boolean" }
+        }
+      },
+      "MessageTemplate": { "type": "object", "properties": {} },
+      "StepFilterChild": {
+        "type": "object",
+        "properties": {
+          "field": { "type": "string" },
+          "value": { "type": "string" },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "LARGER",
+              "SMALLER",
+              "LARGER_EQUAL",
+              "SMALLER_EQUAL",
+              "EQUAL",
+              "NOT_EQUAL",
+              "ALL_IN",
+              "ANY_IN",
+              "NOT_IN",
+              "BETWEEN",
+              "NOT_BETWEEN",
+              "LIKE",
+              "NOT_LIKE"
+            ]
+          }
+        },
+        "required": ["field", "value", "operator"]
+      },
+      "StepFilter": {
+        "type": "object",
+        "properties": {
+          "isNegated": { "type": "boolean" },
+          "type": {
+            "type": "string",
+            "enum": [
+              "BOOLEAN",
+              "TEXT",
+              "DATE",
+              "NUMBER",
+              "STATEMENT",
+              "LIST",
+              "MULTI_LIST",
+              "GROUP"
+            ]
+          },
+          "value": { "type": "string", "enum": ["AND", "OR"] },
+          "children": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/StepFilterChild" }
+          }
+        },
+        "required": ["isNegated", "type", "value", "children"]
+      },
+      "NotificationStepMetadata": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "number" },
+          "unit": { "type": "string", "enum": ["seconds", "minutes", "hours", "days"] },
+          "digestKey": { "type": "string" },
+          "type": { "type": "string", "enum": ["regular", "backoff"] },
+          "backoffUnit": { "type": "string", "enum": ["seconds", "minutes", "hours", "days"] },
+          "backoffAmount": { "type": "number" },
+          "updateMode": { "type": "boolean" }
+        },
+        "required": ["type"]
+      },
+      "NotificationStep": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "_templateId": { "type": "string" },
+          "active": { "type": "boolean" },
+          "template": { "$ref": "#/components/schemas/MessageTemplate" },
+          "filters": { "type": "array", "items": { "$ref": "#/components/schemas/StepFilter" } },
+          "_parentId": { "type": "string" },
+          "metadata": { "$ref": "#/components/schemas/NotificationStepMetadata" }
+        }
+      },
+      "NotificationTriggerVariable": {
+        "type": "object",
+        "properties": { "name": { "type": "string" } },
+        "required": ["name"]
+      },
+      "NotificationTrigger": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "identifier": { "type": "string" },
+          "variables": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationTriggerVariable" }
+          },
+          "subscriberVariables": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationTriggerVariable" }
+          }
+        },
+        "required": ["type", "identifier", "variables"]
+      },
+      "NotificationTemplateResponse": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "active": { "type": "boolean" },
+          "draft": { "type": "boolean" },
+          "preferenceSettings": { "$ref": "#/components/schemas/PreferenceChannels" },
+          "critical": { "type": "boolean" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "steps": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationStep" }
+          },
+          "_organizationId": { "type": "string" },
+          "_creatorId": { "type": "string" },
+          "_environmentId": { "type": "string" },
+          "triggers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationTrigger" }
+          },
+          "_notificationGroupId": { "type": "string" },
+          "_parentId": { "type": "string" },
+          "deleted": { "type": "boolean" },
+          "deletedAt": { "type": "string" },
+          "deletedBy": { "type": "string" },
+          "notificationGroup": { "$ref": "#/components/schemas/NotificationGroup" }
+        },
+        "required": [
+          "name",
+          "description",
+          "active",
+          "draft",
+          "preferenceSettings",
+          "critical",
+          "tags",
+          "steps",
+          "_organizationId",
+          "_creatorId",
+          "_environmentId",
+          "triggers",
+          "_notificationGroupId",
+          "deleted",
+          "deletedAt",
+          "deletedBy"
+        ]
+      },
+      "UpdateNotificationTemplateRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "description": { "type": "string", "maxLength": 100 },
+          "steps": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationStep" }
+          },
+          "notificationGroupId": { "type": "string" },
+          "active": { "type": "boolean" },
+          "critical": { "type": "boolean" },
+          "preferenceSettings": { "$ref": "#/components/schemas/PreferenceChannels" }
+        },
+        "required": ["name", "notificationGroupId"]
+      },
+      "MessageFilterChild": {
+        "type": "object",
+        "properties": {
+          "field": { "type": "string" },
+          "value": { "type": "string" },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "LARGER",
+              "SMALLER",
+              "LARGER_EQUAL",
+              "SMALLER_EQUAL",
+              "EQUAL",
+              "NOT_EQUAL",
+              "ALL_IN",
+              "ANY_IN",
+              "NOT_IN",
+              "BETWEEN",
+              "NOT_BETWEEN",
+              "LIKE",
+              "NOT_LIKE"
+            ]
+          }
+        },
+        "required": ["field", "value", "operator"]
+      },
+      "MessageFilter": {
+        "type": "object",
+        "properties": {
+          "isNegated": { "type": "boolean" },
+          "type": {
+            "type": "string",
+            "enum": [
+              "BOOLEAN",
+              "TEXT",
+              "DATE",
+              "NUMBER",
+              "STATEMENT",
+              "LIST",
+              "MULTI_LIST",
+              "GROUP"
+            ]
+          },
+          "value": { "type": "string", "enum": ["AND", "OR"] },
+          "children": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/MessageFilterChild" }
+          }
+        },
+        "required": ["isNegated", "type", "value", "children"]
+      },
+      "NotificationChannel": {
+        "type": "object",
+        "properties": {
+          "template": { "$ref": "#/components/schemas/MessageTemplate" },
+          "filters": { "type": "array", "items": { "$ref": "#/components/schemas/MessageFilter" } },
+          "active": { "type": "boolean" }
+        }
+      },
+      "CreateNotificationTemplateRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "notificationGroupId": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "description": { "type": "string", "maxLength": 100 },
+          "steps": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationChannel" }
+          },
+          "active": { "type": "boolean" },
+          "draft": { "type": "boolean" },
+          "critical": { "type": "boolean" },
+          "preferenceSettings": { "$ref": "#/components/schemas/PreferenceChannels" }
+        },
+        "required": ["name", "notificationGroupId", "steps"]
+      },
+      "ChangeTemplateStatusRequestDto": {
+        "type": "object",
+        "properties": { "active": { "type": "boolean" } },
+        "required": ["active"]
+      },
+      "SubscriberPayloadDto": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "avatar": { "type": "string" }
+        }
+      },
+      "TriggerEventRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Trigger identifire of your notification" },
+          "payload": {
+            "type": "object",
+            "description": "Oayload with data to be used inside of message templates",
+            "example": { "name": "Novu" }
+          },
+          "overrides": {
+            "type": "object",
+            "description": "Overrides for push notification settings",
+            "example": { "fcm": { "color": "#fff" } }
+          },
+          "to": {
+            "description": "Who should we send then notification to",
+            "oneOf": [
+              { "$ref": "#/components/schemas/SubscriberPayloadDto" },
+              {
+                "type": "[SubscriberPayloadDto]",
+                "description": "List of your users info where you like to send notification to"
+              },
+              { "type": "string", "description": "Subscriber id of your user" },
+              { "type": "[string]", "description": "List of subscriber ids of your users" }
+            ]
+          },
+          "transactionId": { "type": "string", "description": "Id to use to keep track of trigger" }
+        },
+        "required": ["name", "payload", "to", "transactionId"]
+      },
+      "TriggerEventResponseDto": {
+        "type": "object",
+        "properties": {
+          "acknowledged": {
+            "type": "boolean",
+            "description": "If trigger was acknowledged or not"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status for trigger",
+            "enum": [
+              "processed",
+              "trigger_not_active",
+              "template_not_found",
+              "subscriber_id_missing"
+            ]
+          },
+          "transactionId": { "type": "string", "description": "Transaction id for trigger" }
+        },
+        "required": ["acknowledged", "status"]
+      },
+      "TriggerEventToAllRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Trigger identifire of your notification" },
+          "payload": {
+            "type": "object",
+            "description": "payload with data to be used inside of message templates",
+            "example": { "name": "Novu" }
+          },
+          "overrides": {
+            "type": "object",
+            "description": "Overrides for push notification settings",
+            "example": { "fcm": { "color": "#fff" } }
+          },
+          "transactionId": { "type": "string", "description": "Id to use to keep track of trigger" }
+        },
+        "required": ["name", "payload", "transactionId"]
+      },
+      "SessionInitializeRequestDto": {
+        "type": "object",
+        "properties": {
+          "subscriberId": {
+            "type": "string",
+            "description": "Your internal identifire for subscriber"
+          },
+          "applicationIdentifier": {
+            "type": "string",
+            "description": "Identifire for your application can be found in settings for Novu"
+          },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "hmacHash": { "type": "string" }
+        },
+        "required": ["subscriberId", "applicationIdentifier"]
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "phone": { "type": "string" }
+        },
+        "required": ["_id"]
+      },
+      "SessionInitializeResponseDto": {
+        "type": "object",
+        "properties": {
+          "token": { "type": "string" },
+          "profile": { "$ref": "#/components/schemas/Profile" }
+        },
+        "required": ["token", "profile"]
+      },
+      "EmailBlockStyles": {
+        "type": "object",
+        "properties": { "textDirection": { "type": "string", "enum": ["ltr", "rtl"] } }
+      },
+      "EmailBlock": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["text", "button"] },
+          "content": { "type": "string" },
+          "url": { "type": "string" },
+          "styles": { "$ref": "#/components/schemas/EmailBlockStyles" }
+        },
+        "required": ["type", "content"]
+      },
+      "MessageCTAData": { "type": "object", "properties": { "url": { "type": "string" } } },
+      "MessageButton": {
+        "type": "object",
+        "properties": {
+          "type": { "enum": ["primary", "secondary", "clicked"], "type": "string" },
+          "content": { "type": "string" },
+          "resultContent": { "type": "string" }
+        },
+        "required": ["type", "content"]
+      },
+      "MessageActionResult": {
+        "type": "object",
+        "properties": {
+          "payload": { "type": "object" },
+          "type": { "enum": ["primary", "secondary", "clicked"], "type": "string" }
+        }
+      },
+      "MessageAction": {
+        "type": "object",
+        "properties": {
+          "status": { "enum": ["pending", "done"], "type": "string" },
+          "buttons": { "$ref": "#/components/schemas/MessageButton" },
+          "result": { "$ref": "#/components/schemas/MessageActionResult" }
+        },
+        "required": ["result"]
+      },
+      "MessageCTA": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["redirect"] },
+          "data": { "$ref": "#/components/schemas/MessageCTAData" },
+          "action": { "$ref": "#/components/schemas/MessageAction" }
+        },
+        "required": ["type", "data"]
+      },
+      "ChannelCredentials": {
+        "type": "object",
+        "properties": {
+          "webhookUrl": { "type": "string", "description": "Webhook url for direct notificaton" },
+          "notificationIdentifiers": {
+            "description": "Device token for push or direct notificaton",
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["webhookUrl"]
+      },
+      "ChannelSettings": {
+        "type": "object",
+        "properties": {
+          "_integrationId": {
+            "type": "string",
+            "description": "Id of the integration that is used for this channel"
+          },
+          "providerId": {
+            "type": "string",
+            "enum": ["slack", "discord", "fcm"],
+            "description": "Subscriber credentials for channel"
+          },
+          "credentials": {
+            "description": "Subscriber credentials for channel",
+            "allOf": [{ "$ref": "#/components/schemas/ChannelCredentials" }]
+          }
+        },
+        "required": ["_integrationId", "providerId", "credentials"]
+      },
+      "SubscriberResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "avatar": { "type": "string" },
+          "subscriberId": {
+            "type": "string",
+            "description": "Your internal identifire for subscriber"
+          },
+          "channels": {
+            "description": "Channels settings for subscriber",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ChannelSettings" }
+          },
+          "_organizationId": { "type": "string" },
+          "_environmentId": { "type": "string" }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "subscriberId",
+          "_organizationId",
+          "_environmentId"
+        ]
+      },
+      "MessageResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "_templateId": { "type": "string" },
+          "_environmentId": { "type": "string" },
+          "_messageTemplateId": { "type": "string" },
+          "_organizationId": { "type": "string" },
+          "_notificationId": { "type": "string" },
+          "_subscriberId": { "type": "string" },
+          "subscriber": { "$ref": "#/components/schemas/SubscriberResponseDto" },
+          "template": { "$ref": "#/components/schemas/NotificationTemplateResponse" },
+          "templateIdentifier": { "type": "string" },
+          "createdAt": { "type": "string" },
+          "content": { "oneOf": [{ "type": "[EmailBlock]" }, { "type": "string" }] },
+          "transactionId": { "type": "string" },
+          "channel": { "enum": ["in_app", "email", "sms", "direct", "push"], "type": "string" },
+          "seen": { "type": "boolean" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" },
+          "directWebhookUrl": { "type": "string" },
+          "providerId": { "type": "string" },
+          "notificationIdentifiers": { "type": "array", "items": { "type": "string" } },
+          "title": { "type": "string" },
+          "lastSeenDate": { "type": "string" },
+          "cta": { "$ref": "#/components/schemas/MessageCTA" },
+          "_feedId": { "type": "string" },
+          "status": { "type": "string", "enum": ["sent", "error", "warning"] },
+          "errorId": { "type": "string" },
+          "errorText": { "type": "string" },
+          "payload": {
+            "type": "object",
+            "description": "Oayload with data to be used inside of message templates",
+            "example": { "name": "Novu" }
+          },
+          "overrides": {
+            "type": "object",
+            "description": "Overrides for push notification settings",
+            "example": { "fcm": { "color": "#fff" } }
+          },
+          "subject": { "type": "string" }
+        },
+        "required": [
+          "_templateId",
+          "_environmentId",
+          "_messageTemplateId",
+          "_organizationId",
+          "_notificationId",
+          "_subscriberId",
+          "content",
+          "transactionId",
+          "channel",
+          "seen",
+          "lastSeenDate",
+          "cta",
+          "_feedId",
+          "status",
+          "errorId",
+          "errorText",
+          "payload",
+          "overrides"
+        ]
+      },
+      "UnseenCountResponse": {
+        "type": "object",
+        "properties": { "count": { "type": "number" } },
+        "required": ["count"]
+      },
+      "MessageEntity": { "type": "object", "properties": {} },
+      "Branding": {
+        "type": "object",
+        "properties": {
+          "fontFamily": { "type": "string" },
+          "fontColor": { "type": "string" },
+          "contentBackground": { "type": "string" },
+          "logo": { "type": "string" },
+          "color": { "type": "string" },
+          "direction": { "type": "string", "enum": ["ltr", "rtl"] }
+        },
+        "required": ["logo", "color"]
+      },
+      "OrganizationResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "branding": { "$ref": "#/components/schemas/Branding" }
+        },
+        "required": ["_id", "name", "branding"]
+      },
+      "TemplateResponse": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "name": { "type": "string" },
+          "critical": { "type": "boolean" }
+        },
+        "required": ["_id", "name", "critical"]
+      },
+      "Preference": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean" },
+          "channels": { "$ref": "#/components/schemas/PreferenceChannels" }
+        },
+        "required": ["enabled", "channels"]
+      },
+      "UpdateSubscriberPreferenceResponseDto": {
+        "type": "object",
+        "properties": {
+          "template": { "$ref": "#/components/schemas/TemplateResponse" },
+          "preference": { "$ref": "#/components/schemas/Preference" }
+        },
+        "required": ["template", "preference"]
+      },
+      "ChannelPreference": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["in_app", "email", "sms", "direct", "push"],
+            "description": "The type of channel that is enabled or not"
+          },
+          "enabled": { "type": "boolean", "description": "If channel is enabled or not" }
+        },
+        "required": ["type", "enabled"]
+      },
+      "UpdateSubscriberPreferenceRequestDto": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "description": "Channel with prefrence",
+            "allOf": [{ "$ref": "#/components/schemas/ChannelPreference" }]
+          },
+          "enabled": { "type": "boolean" }
+        }
+      },
+      "LogUsageRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "[Widget] - Notification Click" },
+          "payload": {
+            "type": "object",
+            "example": { "notificationId": "507f191e810c19729de860ea", "hasCta": true }
+          }
+        },
+        "required": ["name", "payload"]
+      },
+      "LogUsageResponseDto": {
+        "type": "object",
+        "properties": { "success": { "type": "boolean" } },
+        "required": ["success"]
+      },
+      "SubscribersResponseDto": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number",
+            "description": "What page you are on in the paginated response"
+          },
+          "totalCount": { "type": "number", "description": "Total amount of pages" },
+          "pageSize": { "type": "number", "description": "Number of subscribers on each page" },
+          "data": {
+            "description": "List of subscribers for current page",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SubscriberResponseDto" }
+          }
+        },
+        "required": ["page", "totalCount", "pageSize", "data"]
+      },
+      "CreateSubscriberRequestDto": {
+        "type": "object",
+        "properties": {
+          "subscriberId": {
+            "type": "string",
+            "description": "Your internal identifire for subscriber"
+          },
+          "email": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "phone": { "type": "string" },
+          "avatar": { "type": "string", "description": "Url for avatar image of your subscriber" }
+        },
+        "required": ["subscriberId"]
+      },
+      "UpdateSubscriberRequestDto": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "phone": { "type": "string" },
+          "avatar": { "type": "string" }
+        }
+      },
+      "UpdateSubscriberChannelRequestDto": {
+        "type": "object",
+        "properties": {
+          "providerId": {
+            "type": "string",
+            "enum": ["slack", "discord", "fcm"],
+            "description": "Subscriber credentials for channel"
+          },
+          "credentials": {
+            "description": "Subscriber credentials for channel",
+            "allOf": [{ "$ref": "#/components/schemas/ChannelCredentials" }]
+          }
+        },
+        "required": ["providerId", "credentials"]
+      },
+      "DeleteSubscriberResponseDto": {
+        "type": "object",
+        "properties": {
+          "acknowledged": { "type": "boolean", "description": "If subscriber was deleted or not" },
+          "status": {
+            "type": "string",
+            "description": "Status for subscriber",
+            "enum": ["deleted"]
+          }
+        },
+        "required": ["acknowledged", "status"]
+      }
+    }
+  }
+}

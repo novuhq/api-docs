@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Base */
+@import './fonts.css';
+@import './global.css';
+@import './code-highlighting.css';
+
+/* Components */
+@import './container.css';
+@import './content.css';
+
+/* Utilities */
+@import './safe-paddings.css';
+@import './scrollbar-hidden.css';

@@ -1,0 +1,28 @@
+@layer components {
+  .content {
+    ul,
+    ol,
+    p {
+      @apply my-5 sm:my-4;
+    }
+
+    ul,
+    ol {
+      @apply space-y-2 pl-11 md:space-y-2.5 md:pl-8;
+    }
+
+    ul {
+      > li {
+        @apply relative;
+
+        &::before {
+          @apply absolute top-2.5 -left-2.5 h-1.5 w-1.5 -translate-x-full rounded-full bg-[#0055FF] content-[''] dark:bg-primary-1;
+        }
+      }
+    }
+
+    a {
+      @apply relative font-normal text-[#0055FF] transition-colors duration-200 hover:text-white dark:text-primary-1;
+    }
+  }
+}
