@@ -48,8 +48,8 @@ const Navigation = ({ items, location }) => {
               <li key={index}>
                 <h3 className="text-sm font-medium uppercase leading-tight">{item.label}</h3>
                 <ul className="mt-4">
-                  {item.subItems.map((link, index) => (
-                    <li className="relative" key={index} data-hash={link.path}>
+                  {item.subItems.map((link) => (
+                    <li className="relative" data-hash={link.path} key={link.path}>
                       <Link
                         className={clsx(
                           'block w-full px-3.5 py-2.5 text-sm font-book leading-snug text-gray-4 transition-colors duration-200 dark:text-gray-10',

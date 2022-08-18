@@ -33,13 +33,13 @@ const getFilteredDataForSection = (id, snippets, responses) => {
 
 const Sections = ({ sections, snippets, responses }) =>
   sections.map(({ methods }) =>
-    methods.map((method, index) => {
+    methods.map((method) => {
       const data = getFilteredDataForSection(method.id, snippets, responses);
       const defaultSnippets = generateSnippets(method);
       const defaultResponses = generateResponses(method.responses);
 
       return (
-        <SectionWrapper id={method.slug} key={index}>
+        <SectionWrapper id={method.slug} key={method.slug}>
           <div className="flex-1">
             <h2 className="text-2xl font-medium leading-tight">{method.summary}</h2>
             <p className="mt-3 text-base font-book">{method.description}</p>
