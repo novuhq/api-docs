@@ -6,10 +6,20 @@ import PlusIcon from 'icons/plus.inline.svg';
 
 import SubParametr from './sub-parametr';
 
-const ParametrWithType = ({ className, name, type, description, subParameters, isRequired }) => {
+const ParametrWithType = ({
+  className,
+  name,
+  type,
+  description,
+  subParameters,
+  isRequired,
+  ...props
+}) => {
+  const { allOf, oneOf } = props;
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const hasSubParameters = subParameters && Object.keys(subParameters).length > 0;
+  const parameters = subParameters || allOf || oneOf;
 
   const handleOpen = () => setIsOpen((prevState) => !prevState);
 
@@ -17,15 +27,15 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
     <li className={clsx('border-b border-gray-10 py-4 dark:border-gray-4', className)}>
       <div className="flex space-x-2.5">
         <span className="font-mono text-sm font-semibold">{name}</span>
-        {type && (
-          <span className="flex items-center whitespace-nowrap rounded-sm bg-gray-10 px-1.5 font-mono text-sm leading-none text-gray-6 dark:bg-gray-3 dark:text-gray-8">
-            {type}
-            {!isRequired && ' (optional)'}
-          </span>
-        )}
+        <span className="flex items-center whitespace-nowrap rounded-sm bg-gray-10 px-1.5 font-mono text-sm leading-none text-gray-6 dark:bg-gray-3 dark:text-gray-8">
+          {type && type}
+          {!type && allOf && 'allOf'}
+          {!type && oneOf && 'oneOf'}
+          {!isRequired && ' (optional)'}
+        </span>
       </div>
       {description && <p className="mt-2 font-book dark:text-gray-10">{description}</p>}
-      {hasSubParameters && (
+      {parameters && (
         <div
           className={clsx(
             'mt-3 inline-block rounded-sm border border-gray-10 outline-none transition-all duration-200 dark:border-gray-4',
@@ -51,16 +61,22 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
                 'rotate-45': isOpen,
               })}
             />
-            <span>{isOpen ? 'Hide child parameters' : 'Show child parameters'}</span>
+            {subParameters && (
+              <span>{isOpen ? 'Hide child parameters' : 'Show child parameters'}</span>
+            )}
+
+            {((!subParameters && oneOf) || allOf) && (
+              <span>{isOpen ? 'Hide parameters' : 'Show parameters'}</span>
+            )}
           </span>
           {isOpen && (
             <ul>
-              {Object.keys(subParameters).map((propertyName, index) => {
-                const { type, description, properties, items } = subParameters[propertyName];
+              {Object.keys(parameters).map((propertyName, index) => {
+                const { type, description, properties, items } = parameters[propertyName];
 
-                const parameters = properties || items?.properties;
+                const subParameters = properties || items?.properties;
                 const hasSubParameters =
-                  parameters && parameters && Object.keys(parameters).length > 0;
+                  subParameters && subParameters && Object.keys(subParameters).length > 0;
 
                 return !hasSubParameters ? (
                   <li
@@ -83,8 +99,9 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
                     name={propertyName}
                     type={type}
                     description={description}
-                    subParameters={parameters}
-                    isRequired={parameters?.required?.includes(propertyName)}
+                    subParameters={subParameters}
+                    // eslint-disable-next-line react/prop-types
+                    isRequired={subParameters?.required?.includes(propertyName)}
                   />
                 );
               })}
@@ -123,6 +140,50 @@ ParametrWithType.propTypes = {
       }),
     })
   ),
+  oneOf: PropTypes.objectOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      description: PropTypes.string,
+      properties: PropTypes.objectOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          type: PropTypes.string,
+          description: PropTypes.string,
+        })
+      ),
+      items: PropTypes.shape({
+        properties: PropTypes.objectOf(
+          PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string,
+            description: PropTypes.string,
+          })
+        ),
+      }),
+    })
+  ),
+  allOf: PropTypes.objectOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      description: PropTypes.string,
+      properties: PropTypes.objectOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          type: PropTypes.string,
+          description: PropTypes.string,
+        })
+      ),
+      items: PropTypes.shape({
+        properties: PropTypes.objectOf(
+          PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            type: PropTypes.string,
+            description: PropTypes.string,
+          })
+        ),
+      }),
+    })
+  ),
   isRequired: PropTypes.bool,
 };
 
@@ -131,6 +192,8 @@ ParametrWithType.defaultProps = {
   type: null,
   description: null,
   subParameters: null,
+  oneOf: null,
+  allOf: null,
   isRequired: false,
 };
 

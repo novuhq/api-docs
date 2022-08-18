@@ -107,6 +107,7 @@ const Sections = ({ sections, snippets, responses }) =>
                         description={description}
                         subParameters={properties || items?.properties}
                         key={index}
+                        {...method.parameters.body.properties[propertyName]}
                       />
                     );
                   })}

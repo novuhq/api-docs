@@ -72,6 +72,7 @@ export const ResponseCode = ({ className, code, description, schema, theme }) =>
                 description={description}
                 subParameters={properties || items?.properties}
                 key={index}
+                {...schema.properties[propertyName]}
               />
             );
           })}
