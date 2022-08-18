@@ -9,7 +9,7 @@ const generateSnippets = ({ method, endpoint, parameters }) => [
 const response = await fetch('https://api.novu.app${endpoint}', {
   method: '${method.toUpperCase()}',
   ${
-    method !== 'get' && parameters?.body
+    method !== 'get' && parameters?.body?.properties
       ? `headers: {
     'Content-Type': 'application/json',
   },
@@ -35,7 +35,7 @@ console.log(data);
     language: 'bash',
     content: `curl -X ${method.toUpperCase()}
     ${
-      parameters?.body
+      parameters?.body?.properties
         ? `-H "Content-Type: application/json"
     -d ` +
           `'{
@@ -58,7 +58,7 @@ console.log(data);
     content: `import requests
 
 response = requests.${method.toLowerCase()}('https://api.novu.app${endpoint}'${
-      parameters?.body
+      parameters?.body?.properties
         ? `, json={
       ${Object.keys(parameters?.body?.properties)
         .map((name) => {
@@ -92,7 +92,7 @@ request = Net::HTTP::Post.new(uri.request_uri)
 
 request.body = '{
   ${
-    parameters?.body
+    parameters?.body?.properties
       ? Object.keys(parameters?.body?.properties)
           .map((name) => {
             const { type } = parameters.body.properties[name];
@@ -124,7 +124,7 @@ puts response.body
 $url = 'https://api.novu.app${endpoint}';
 $data = array(
   ${
-    parameters?.body
+    parameters?.body?.properties
       ? Object.keys(parameters?.body?.properties)
           .map((name) => {
             const { type } = parameters.body.properties[name];
@@ -169,7 +169,7 @@ func main() {
   url := "https://api.novu.app${endpoint}"
   data := map[string]string{
     ${
-      parameters?.body
+      parameters?.body?.properties
         ? Object.keys(parameters?.body?.properties)
             .map((name) => {
               const { type } = parameters.body.properties[name];
