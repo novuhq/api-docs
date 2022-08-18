@@ -60,7 +60,7 @@ export const ResponseCode = ({ className, code, description, schema, theme }) =>
             {schema.type}
           </span>
           {Object.keys(schema.properties).map((propertyName, index) => {
-            const { type, description, properties } = schema.properties[propertyName];
+            const { type, description, properties, items } = schema.properties[propertyName];
 
             return (
               <ParametrWithType
@@ -70,7 +70,7 @@ export const ResponseCode = ({ className, code, description, schema, theme }) =>
                 // eslint-disable-next-line react/prop-types
                 isRequired={schema.required?.includes(propertyName)}
                 description={description}
-                subParameters={properties}
+                subParameters={properties || items?.properties}
                 key={index}
               />
             );

@@ -13,6 +13,10 @@ const getValueForParameter = (param, type, name) => {
       }
       return true;
     case 'array':
+      if (param.example) {
+        return `[${JSON.stringify(param.example)}]`;
+      }
+
       return `["${name}"]`;
     case 'object':
       if (param.example) {

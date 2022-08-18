@@ -96,7 +96,7 @@ const Sections = ({ sections, snippets, responses }) =>
 
                 <ul className="mt-5 border-t border-gray-10 dark:border-gray-4">
                   {Object.keys(method.parameters.body.properties).map((propertyName, index) => {
-                    const { type, description, properties } =
+                    const { type, description, properties, items } =
                       method.parameters.body.properties[propertyName];
 
                     return (
@@ -105,7 +105,7 @@ const Sections = ({ sections, snippets, responses }) =>
                         type={type}
                         isRequired={method.parameters.body.required?.includes(propertyName)}
                         description={description}
-                        subParameters={properties}
+                        subParameters={properties || items?.properties}
                         key={index}
                       />
                     );

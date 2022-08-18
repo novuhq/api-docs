@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 
 import PlusIcon from 'icons/plus.inline.svg';
 
-import SubParametr from './sub-parametr';
-
-const ParametrWithType = ({ className, name, type, description, subParameters, isRequired }) => {
+const SubSubParametr = ({ name, type, description, subParameters, isRequired }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const hasSubParameters = subParameters && Object.keys(subParameters).length > 0;
@@ -14,7 +12,7 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
   const handleOpen = () => setIsOpen((prevState) => !prevState);
 
   return (
-    <li className={clsx('border-b border-gray-10 py-4 dark:border-gray-4', className)}>
+    <li className="space-y-5 border-b border-gray-10 p-4 px-3 last:border-none dark:border-gray-4">
       <div className="flex space-x-2.5">
         <span className="font-mono text-sm font-semibold">{name}</span>
         {type && (
@@ -56,13 +54,9 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
           {isOpen && (
             <ul>
               {Object.keys(subParameters).map((propertyName, index) => {
-                const { type, description, properties, items } = subParameters[propertyName];
+                const { type, description } = subParameters[propertyName];
 
-                const parameters = properties || items?.properties;
-                const hasSubParameters =
-                  parameters && parameters && Object.keys(parameters).length > 0;
-
-                return !hasSubParameters ? (
+                return (
                   <li
                     className="space-y-5 border-b border-gray-10 p-4 px-3 last:border-none dark:border-gray-4"
                     key={index}
@@ -78,14 +72,6 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
                     </div>
                     {description && <p className="font-book dark:text-gray-10">{description}</p>}
                   </li>
-                ) : (
-                  <SubParametr
-                    name={propertyName}
-                    type={type}
-                    description={description}
-                    subParameters={parameters}
-                    isRequired={parameters?.required?.includes(propertyName)}
-                  />
                 );
               })}
             </ul>
@@ -96,8 +82,7 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
   );
 };
 
-ParametrWithType.propTypes = {
-  className: PropTypes.string,
+SubSubParametr.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   description: PropTypes.string,
@@ -112,26 +97,16 @@ ParametrWithType.propTypes = {
           description: PropTypes.string,
         })
       ),
-      items: PropTypes.shape({
-        properties: PropTypes.objectOf(
-          PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            type: PropTypes.string,
-            description: PropTypes.string,
-          })
-        ),
-      }),
     })
   ),
   isRequired: PropTypes.bool,
 };
 
-ParametrWithType.defaultProps = {
-  className: null,
+SubSubParametr.defaultProps = {
   type: null,
   description: null,
   subParameters: null,
   isRequired: false,
 };
 
-export default ParametrWithType;
+export default SubSubParametr;

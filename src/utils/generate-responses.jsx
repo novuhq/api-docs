@@ -4,19 +4,21 @@ const generateResponses = (responses) => {
   const items = responses
     .map((response) => {
       const {
-        schema: { properties },
+        schema: { properties, items },
       } = response;
+      console.log(items);
+      const props = properties || items?.properties;
 
-      if (properties) {
+      if (props) {
         return {
           label: `${response.status}`,
           language: 'json',
           content: `{
-    ${Object.keys(properties)
+    ${Object.keys(props)
       .map((propertyName) => {
-        const { type } = properties[propertyName];
+        const { type } = props[propertyName];
 
-        return `${propertyName}: ${getValueForParameter(properties, type, propertyName)}`;
+        return `${propertyName}: ${getValueForParameter(props[propertyName], type, propertyName)}`;
       })
       .join(',\n    ')}
 }`,

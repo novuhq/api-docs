@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 
 import PlusIcon from 'icons/plus.inline.svg';
 
-import SubParametr from './sub-parametr';
+import SubSubParametr from './sub-sub-parametr';
 
-const ParametrWithType = ({ className, name, type, description, subParameters, isRequired }) => {
+const SubParametr = ({ name, type, description, subParameters, isRequired }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const hasSubParameters = subParameters && Object.keys(subParameters).length > 0;
@@ -14,7 +14,7 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
   const handleOpen = () => setIsOpen((prevState) => !prevState);
 
   return (
-    <li className={clsx('border-b border-gray-10 py-4 dark:border-gray-4', className)}>
+    <li className="space-y-5 border-b border-gray-10 p-4 px-3 last:border-none dark:border-gray-4">
       <div className="flex space-x-2.5">
         <span className="font-mono text-sm font-semibold">{name}</span>
         {type && (
@@ -79,7 +79,7 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
                     {description && <p className="font-book dark:text-gray-10">{description}</p>}
                   </li>
                 ) : (
-                  <SubParametr
+                  <SubSubParametr
                     name={propertyName}
                     type={type}
                     description={description}
@@ -96,8 +96,7 @@ const ParametrWithType = ({ className, name, type, description, subParameters, i
   );
 };
 
-ParametrWithType.propTypes = {
-  className: PropTypes.string,
+SubParametr.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   description: PropTypes.string,
@@ -126,12 +125,11 @@ ParametrWithType.propTypes = {
   isRequired: PropTypes.bool,
 };
 
-ParametrWithType.defaultProps = {
-  className: null,
+SubParametr.defaultProps = {
   type: null,
   description: null,
   subParameters: null,
   isRequired: false,
 };
 
-export default ParametrWithType;
+export default SubParametr;
