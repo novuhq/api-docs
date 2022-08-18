@@ -85,7 +85,7 @@ async function createMainPage({ actions, menu, pages }) {
   const { createPage } = actions;
 
   createPage({
-    path: '/',
+    path: '/api',
     component: path.resolve('./src/templates/main.jsx'),
     context: {
       menu,
