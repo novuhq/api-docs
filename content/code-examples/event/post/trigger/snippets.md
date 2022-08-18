@@ -22,8 +22,6 @@ const response = await fetch('https://api.novu.app/v1/events/trigger', {
   }),
 });
 const body = await response.text();
-
-console.log(body);
 ```
 
 ```bash label=cURL
