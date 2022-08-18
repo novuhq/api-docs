@@ -81,7 +81,7 @@ module.exports = {
       options: {
         headers: {
           '/*': ['Access-Control-Allow-Origin: *'],
-          '/fonts/*': ['Cache-Control: public, max-age=31536000, immutable'],
+          '/api/fonts/*': ['Cache-Control: public, max-age=31536000, immutable'],
         },
       },
     },
