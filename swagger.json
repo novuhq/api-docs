@@ -621,8 +621,8 @@
     "/v1/events/trigger/broadcast": {
       "post": {
         "operationId": "EventsController_trackEventToAll",
-        "summary": "Trigger event for all subscribers",
-        "description": "Trigger event to send notifications to all subscribers",
+        "summary": "Broadcast event to all",
+        "description": "Trigger a broadcast event to all existing subscribers, could be used to send announcements, etc. In the future could be used to trigger events to a subset of subscribers based on defined filters.",
         "parameters": [
           
         ],
@@ -657,7 +657,7 @@
       "delete": {
         "operationId": "EventsController_cancelDigest",
         "summary": "Cancel triggered event",
-        "description": "Cancel trigger with workflow containing running digest node",
+        "description": "\n    Using a previously generated transactionId during the event trigger,\n     will cancel any active or pending workflows. This is useful to cancel active digests and etc...\n    ",
         "parameters": [
           {
             "name": "transactionId",
@@ -689,9 +689,17 @@
       "get": {
         "operationId": "SubscribersController_getSubscribers",
         "summary": "Get subscribers",
-        "description": "Get subscribers paginated",
+        "description": "Returns a list of subscribers, could paginated using the `page` query parameter",
         "parameters": [
-          
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "The page to fetch, defaults to 0",
+            "schema": {
+              "type": "number"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1907,13 +1915,13 @@
             "type": "boolean"
           },
           "type": {
-            "type": "string",
             "enum": [
               "NotificationTemplate",
               "MessageTemplate",
               "NotificationGroup",
               "FEED"
-            ]
+            ],
+            "type": "string"
           },
           "change": {
             "type": "object"
@@ -2558,18 +2566,21 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Trigger identifire of your notification"
+            "description": "The trigger identifier associated for the template you wish to send. This identifier can be found on the template page."
           },
           "payload": {
             "type": "object",
-            "description": "payload with data to be used inside of message templates",
+            "description": "The payload object is used to pass additional custom information that could be used to render the template, or perform routing rules based on it. \n      This data will also be available when fetching the notifications feed from the API to display certain parts of the UI.",
             "example": {
-              "name": "Novu"
+              "comment_id": "string",
+              "post": {
+                "text": "string"
+              }
             }
           },
           "overrides": {
             "type": "object",
-            "description": "Overrides for push notification settings",
+            "description": "This could be used to override provider specific configurations",
             "example": {
               "fcm": {
                 "color": "#fff"
@@ -2578,13 +2589,12 @@
           },
           "transactionId": {
             "type": "string",
-            "description": "Id to use to keep track of trigger"
+            "description": "A unique identifier for this transaction, we will generated a UUID if not provided."
           }
         },
         "required": [
           "name",
-          "payload",
-          "transactionId"
+          "payload"
         ]
       },
       "ChannelCredentials": {
@@ -2690,18 +2700,18 @@
         "properties": {
           "page": {
             "type": "number",
-            "description": "What page you are on in the paginated response"
+            "description": "The current page of the paginated response"
           },
           "totalCount": {
             "type": "number",
-            "description": "Total amount of pages"
+            "description": "Total count of subscribers matching the query"
           },
           "pageSize": {
             "type": "number",
             "description": "Number of subscribers on each page"
           },
           "data": {
-            "description": "List of subscribers for current page",
+            "description": "The list of subscribers matching the query",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SubscriberResponseDto"
@@ -2947,12 +2957,12 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
             "enum": [
               "primary",
               "secondary",
               "clicked"
-            ]
+            ],
+            "type": "string"
           },
           "content": {
             "type": "string"
@@ -2973,12 +2983,12 @@
             "type": "object"
           },
           "type": {
-            "type": "string",
             "enum": [
               "primary",
               "secondary",
               "clicked"
-            ]
+            ],
+            "type": "string"
           }
         }
       },
@@ -2986,11 +2996,11 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": "string",
             "enum": [
               "pending",
               "done"
-            ]
+            ],
+            "type": "string"
           },
           "buttons": {
             "$ref": "#/components/schemas/MessageButton"
@@ -3007,7 +3017,10 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "object"
+            "type": "string",
+            "enum": [
+              "redirect"
+            ]
           },
           "data": {
             "$ref": "#/components/schemas/MessageCTAData"
@@ -3071,14 +3084,14 @@
             "type": "string"
           },
           "channel": {
-            "type": "string",
             "enum": [
               "in_app",
               "email",
               "sms",
               "chat",
               "push"
-            ]
+            ],
+            "type": "string"
           },
           "seen": {
             "type": "boolean"
@@ -3408,14 +3421,14 @@
             "type": "string"
           },
           "channel": {
-            "type": "string",
             "enum": [
               "in_app",
               "email",
               "sms",
               "chat",
               "push"
-            ]
+            ],
+            "type": "string"
           },
           "credentials": {
             "$ref": "#/components/schemas/CredentialsDto"
@@ -3452,14 +3465,14 @@
             "type": "string"
           },
           "channel": {
-            "type": "string",
             "enum": [
               "in_app",
               "email",
               "sms",
               "chat",
               "push"
-            ]
+            ],
+            "type": "string"
           },
           "credentials": {
             "$ref": "#/components/schemas/CredentialsDto"
