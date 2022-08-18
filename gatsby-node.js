@@ -42,15 +42,9 @@ const getAllData = async () => {
       })),
     }))
     .sort((a, b) => {
-      const tagA = a.methods[0].tag;
-      const tagB = b.methods[0].tag;
-      if (tagA < tagB) {
-        return -1;
-      }
-      if (tagA > tagB) {
-        return 1;
-      }
-      return 0;
+      const aIndex = tags.findIndex((tag) => tag.name === a.methods[0].tag);
+      const bIndex = tags.findIndex((tag) => tag.name === b.methods[0].tag);
+      return aIndex - bIndex;
     });
 
   const methods = pages.reduce((acc, path) => {
