@@ -1,6 +1,6 @@
 ---
-title: Novu Trigger event
-id: post-/v1/events/trigger
+title: Novu broadcast event
+id: post-/v1/events/trigger/broadcast
 type: snippets
 ---
 
@@ -8,14 +8,8 @@ type: snippets
 import { Novu } from '@novu/node';
 export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
 
-await novu.trigger('<REPLACE_WITH_EVENT_NAME_FROM_ADMIN_PANEL>',
+await novu.broadcast('<REPLACE_WITH_EVENT_NAME_FROM_ADMIN_PANEL>',
   {
-    to: {
-      subscriberId: '<USER_IDENTIFIER>',
-      email: 'email@email.com',
-      firstName: 'John',
-      lastName: 'Doe',
-    },
     payload: {
       customVariables: 'Hello'
     },
@@ -32,8 +26,7 @@ curl -X POST
     "payload": {
       "test": "test"
     },
-    "to": "to",
     "transactionId": "transactionId"
   }'
-  https://api.novu.app/v1/events/trigger
+  https://api.novu.app/v1/events/trigger/brodcast
 ```

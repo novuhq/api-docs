@@ -26,8 +26,6 @@ const response = await fetch('https://api.novu.app${endpoint}', {
   }
 });
 const data = await response.json();
-
-console.log(data);
     `,
   },
   {

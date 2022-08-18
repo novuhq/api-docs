@@ -587,7 +587,7 @@
       "post": {
         "operationId": "EventsController_trackEvent",
         "summary": "Trigger event",
-        "description": "Trigger event to send notifications to subscribers",
+        "description": "\n    Trigger event is the main (and the only) way to send notification to subscribers. \n    The trigger identifier is used to match the particular template associated with it. \n    Additional information can be passed according the the body interface below.\n    ",
         "parameters": [
           
         ],
@@ -614,15 +614,15 @@
           }
         },
         "tags": [
-          "Event"
+          "Events"
         ]
       }
     },
     "/v1/events/trigger/broadcast": {
       "post": {
         "operationId": "EventsController_trackEventToAll",
-        "summary": "Trigger event for all subscribers",
-        "description": "Trigger event to send notifications to all subscribers",
+        "summary": "Broadcast event to all",
+        "description": "Trigger a broadcast event to all existing subscribers, could be used to send announcements, etc. In the future could be used to trigger events to a subset of subscribers based on defined filters.",
         "parameters": [
           
         ],
@@ -649,7 +649,7 @@
           }
         },
         "tags": [
-          "Event"
+          "Events"
         ]
       }
     },
@@ -657,7 +657,7 @@
       "delete": {
         "operationId": "EventsController_cancelDigest",
         "summary": "Cancel triggered event",
-        "description": "Cancel trigger with workflow containing running digest node",
+        "description": "\n    Using a previously generated transactionId during the event trigger,\n     will cancel any active or pending workflows. This is useful to cancel active digests and etc...\n    ",
         "parameters": [
           {
             "name": "transactionId",
@@ -681,7 +681,7 @@
           }
         },
         "tags": [
-          "Event"
+          "Events"
         ]
       }
     },
@@ -689,9 +689,17 @@
       "get": {
         "operationId": "SubscribersController_getSubscribers",
         "summary": "Get subscribers",
-        "description": "Get subscribers paginated",
+        "description": "Returns a list of subscribers, could paginated using the `page` query parameter",
         "parameters": [
-          
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "The page to fetch, defaults to 0",
+            "schema": {
+              "type": "number"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1645,7 +1653,27 @@
   },
   "tags": [
     {
+      "name": "Events",
+      "description": ""
+    },
+    {
+      "name": "Subscribers",
+      "description": ""
+    },
+    {
       "name": "Activity",
+      "description": ""
+    },
+    {
+      "name": "Integrations",
+      "description": ""
+    },
+    {
+      "name": "Notification templates",
+      "description": ""
+    },
+    {
+      "name": "Notification groups",
       "description": ""
     },
     {
@@ -1665,27 +1693,11 @@
       "description": ""
     },
     {
-      "name": "Event",
-      "description": ""
-    },
-    {
       "name": "Feeds",
       "description": ""
     },
     {
-      "name": "Integrations",
-      "description": ""
-    },
-    {
       "name": "Invites",
-      "description": ""
-    },
-    {
-      "name": "Notification groups",
-      "description": ""
-    },
-    {
-      "name": "Notification templates",
       "description": ""
     },
     {
@@ -1694,10 +1706,6 @@
     },
     {
       "name": "Storage",
-      "description": ""
-    },
-    {
-      "name": "Subscribers",
       "description": ""
     },
     {
@@ -2474,18 +2482,21 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Trigger identifire of your notification"
+            "description": "The trigger identifier of the template you wish to send. This identifier can be found on the template page."
           },
           "payload": {
             "type": "object",
-            "description": "Oayload with data to be used inside of message templates",
+            "description": "The payload object is used to pass additional custom information that could be used to render the template, or perform routing rules based on it. \n      This data will also be available when fetching the notifications feed from the API to display certain parts of the UI.",
             "example": {
-              "name": "Novu"
+              "comment_id": "string",
+              "post": {
+                "text": "string"
+              }
             }
           },
           "overrides": {
             "type": "object",
-            "description": "Overrides for push notification settings",
+            "description": "This could be used to override provider specific configurations",
             "example": {
               "fcm": {
                 "color": "#fff"
@@ -2493,35 +2504,34 @@
             }
           },
           "to": {
-            "description": "Who should we send then notification to",
+            "description": "The recipients list of people who will receive the notification",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/SubscriberPayloadDto"
               },
               {
                 "type": "[SubscriberPayloadDto]",
-                "description": "List of your users info where you like to send notification to"
+                "description": "List of subscriber objects"
               },
               {
                 "type": "string",
-                "description": "Subscriber id of your user"
+                "description": "Unique identifier of a subscriber in your systems"
               },
               {
                 "type": "[string]",
-                "description": "List of subscriber ids of your users"
+                "description": "List of subscriber identifiers"
               }
             ]
           },
           "transactionId": {
             "type": "string",
-            "description": "Id to use to keep track of trigger"
+            "description": "A unique identifier for this transaction, we will generated a UUID if not provided."
           }
         },
         "required": [
           "name",
           "payload",
-          "to",
-          "transactionId"
+          "to"
         ]
       },
       "TriggerEventResponseDto": {
@@ -2556,18 +2566,21 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Trigger identifire of your notification"
+            "description": "The trigger identifier associated for the template you wish to send. This identifier can be found on the template page."
           },
           "payload": {
             "type": "object",
-            "description": "payload with data to be used inside of message templates",
+            "description": "The payload object is used to pass additional custom information that could be used to render the template, or perform routing rules based on it. \n      This data will also be available when fetching the notifications feed from the API to display certain parts of the UI.",
             "example": {
-              "name": "Novu"
+              "comment_id": "string",
+              "post": {
+                "text": "string"
+              }
             }
           },
           "overrides": {
             "type": "object",
-            "description": "Overrides for push notification settings",
+            "description": "This could be used to override provider specific configurations",
             "example": {
               "fcm": {
                 "color": "#fff"
@@ -2576,13 +2589,12 @@
           },
           "transactionId": {
             "type": "string",
-            "description": "Id to use to keep track of trigger"
+            "description": "A unique identifier for this transaction, we will generated a UUID if not provided."
           }
         },
         "required": [
           "name",
-          "payload",
-          "transactionId"
+          "payload"
         ]
       },
       "ChannelCredentials": {
@@ -2688,18 +2700,18 @@
         "properties": {
           "page": {
             "type": "number",
-            "description": "What page you are on in the paginated response"
+            "description": "The current page of the paginated response"
           },
           "totalCount": {
             "type": "number",
-            "description": "Total amount of pages"
+            "description": "Total count of subscribers matching the query"
           },
           "pageSize": {
             "type": "number",
             "description": "Number of subscribers on each page"
           },
           "data": {
-            "description": "List of subscribers for current page",
+            "description": "The list of subscribers matching the query",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SubscriberResponseDto"
