@@ -6,7 +6,7 @@ const generateResponses = (responses) => {
       const {
         schema: { properties, items },
       } = response;
-      console.log(items);
+
       const props = properties || items?.properties;
 
       if (props) {
