@@ -587,7 +587,7 @@
       "post": {
         "operationId": "EventsController_trackEvent",
         "summary": "Trigger event",
-        "description": "Trigger event to send notifications to subscribers",
+        "description": "\n    Trigger event is the main (and the only) way to send notification to subscribers. \n    The trigger identifier is used to match the particular template associated with it. \n    Additional information can be passed according the the body interface below.\n    ",
         "parameters": [
           
         ],
@@ -1645,7 +1645,27 @@
   },
   "tags": [
     {
+      "name": "Events",
+      "description": ""
+    },
+    {
+      "name": "Subscribers",
+      "description": ""
+    },
+    {
       "name": "Activity",
+      "description": ""
+    },
+    {
+      "name": "Integrations",
+      "description": ""
+    },
+    {
+      "name": "Notification templates",
+      "description": ""
+    },
+    {
+      "name": "Notification groups",
       "description": ""
     },
     {
@@ -1665,27 +1685,11 @@
       "description": ""
     },
     {
-      "name": "Event",
-      "description": ""
-    },
-    {
       "name": "Feeds",
       "description": ""
     },
     {
-      "name": "Integrations",
-      "description": ""
-    },
-    {
       "name": "Invites",
-      "description": ""
-    },
-    {
-      "name": "Notification groups",
-      "description": ""
-    },
-    {
-      "name": "Notification templates",
       "description": ""
     },
     {
@@ -1694,10 +1698,6 @@
     },
     {
       "name": "Storage",
-      "description": ""
-    },
-    {
-      "name": "Subscribers",
       "description": ""
     },
     {
@@ -1907,13 +1907,13 @@
             "type": "boolean"
           },
           "type": {
+            "type": "string",
             "enum": [
               "NotificationTemplate",
               "MessageTemplate",
               "NotificationGroup",
               "FEED"
-            ],
-            "type": "string"
+            ]
           },
           "change": {
             "type": "object"
@@ -2474,18 +2474,21 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "Trigger identifire of your notification"
+            "description": "The trigger identifier of the template you wish to send. This identifier can be found on the template page."
           },
           "payload": {
             "type": "object",
-            "description": "Oayload with data to be used inside of message templates",
+            "description": "The payload object is used to pass additional custom information that could be used to render the template, or perform routing rules based on it. \n      This data will also be available when fetching the notifications feed from the API to display certain parts of the UI.",
             "example": {
-              "name": "Novu"
+              "comment_id": "string",
+              "post": {
+                "text": "string"
+              }
             }
           },
           "overrides": {
             "type": "object",
-            "description": "Overrides for push notification settings",
+            "description": "This could be used to override provider specific configurations",
             "example": {
               "fcm": {
                 "color": "#fff"
@@ -2493,35 +2496,34 @@
             }
           },
           "to": {
-            "description": "Who should we send then notification to",
+            "description": "The recipients list of people who will receive the notification",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/SubscriberPayloadDto"
               },
               {
                 "type": "[SubscriberPayloadDto]",
-                "description": "List of your users info where you like to send notification to"
+                "description": "List of subscriber objects"
               },
               {
                 "type": "string",
-                "description": "Subscriber id of your user"
+                "description": "Unique identifier of a subscriber in your systems"
               },
               {
                 "type": "[string]",
-                "description": "List of subscriber ids of your users"
+                "description": "List of subscriber identifiers"
               }
             ]
           },
           "transactionId": {
             "type": "string",
-            "description": "Id to use to keep track of trigger"
+            "description": "A unique identifier for this transaction, we will generated a UUID if not provided."
           }
         },
         "required": [
           "name",
           "payload",
-          "to",
-          "transactionId"
+          "to"
         ]
       },
       "TriggerEventResponseDto": {
@@ -2945,12 +2947,12 @@
         "type": "object",
         "properties": {
           "type": {
+            "type": "string",
             "enum": [
               "primary",
               "secondary",
               "clicked"
-            ],
-            "type": "string"
+            ]
           },
           "content": {
             "type": "string"
@@ -2971,12 +2973,12 @@
             "type": "object"
           },
           "type": {
+            "type": "string",
             "enum": [
               "primary",
               "secondary",
               "clicked"
-            ],
-            "type": "string"
+            ]
           }
         }
       },
@@ -2984,11 +2986,11 @@
         "type": "object",
         "properties": {
           "status": {
+            "type": "string",
             "enum": [
               "pending",
               "done"
-            ],
-            "type": "string"
+            ]
           },
           "buttons": {
             "$ref": "#/components/schemas/MessageButton"
@@ -3005,10 +3007,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "enum": [
-              "redirect"
-            ]
+            "type": "object"
           },
           "data": {
             "$ref": "#/components/schemas/MessageCTAData"
@@ -3072,14 +3071,14 @@
             "type": "string"
           },
           "channel": {
+            "type": "string",
             "enum": [
               "in_app",
               "email",
               "sms",
               "chat",
               "push"
-            ],
-            "type": "string"
+            ]
           },
           "seen": {
             "type": "boolean"
@@ -3409,14 +3408,14 @@
             "type": "string"
           },
           "channel": {
+            "type": "string",
             "enum": [
               "in_app",
               "email",
               "sms",
               "chat",
               "push"
-            ],
-            "type": "string"
+            ]
           },
           "credentials": {
             "$ref": "#/components/schemas/CredentialsDto"
@@ -3453,14 +3452,14 @@
             "type": "string"
           },
           "channel": {
+            "type": "string",
             "enum": [
               "in_app",
               "email",
               "sms",
               "chat",
               "push"
-            ],
-            "type": "string"
+            ]
           },
           "credentials": {
             "$ref": "#/components/schemas/CredentialsDto"
