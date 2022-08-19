@@ -10,17 +10,21 @@ const PARAMETER_TYPES = {
   body: 'body',
 };
 
+// {param} => :param
+// path - /v1/events/trigger/{transactionId} => /v1/events/trigger/:transactionId
+const getFormattedPath = (path) => path.replace(/{/g, ':').replace(/}/g, '');
+
 const getAllData = async () => {
   const { paths, tags } = await SwaggerParser.dereference(dataSwagger);
 
   const pages = Object.keys(paths)
     .map((path) => ({
-      endpoint: path.replace(/{/g, ':').replace(/}/g, ''),
+      endpoint: getFormattedPath(path),
       methods: Object.keys(paths[path]).map((method) => ({
         ...paths[path][method],
-        id: `${method}-${path}`,
+        id: `${method}-${getFormattedPath(path)}`,
         method,
-        endpoint: path.replace(/{/g, ':').replace(/}/g, ''),
+        endpoint: getFormattedPath(path),
         tag: paths[path][method].tags[0],
         slug: paths[path][method].summary.replace(/\s/g, '-').toLowerCase(),
         parameters: {
