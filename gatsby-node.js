@@ -10,17 +10,19 @@ const PARAMETER_TYPES = {
   body: 'body',
 };
 
+const getFormattedParameter = (param) => param.replace(/{/g, ':').replace(/}/g, '');
+
 const getAllData = async () => {
   const { paths, tags } = await SwaggerParser.dereference(dataSwagger);
 
   const pages = Object.keys(paths)
     .map((path) => ({
-      endpoint: path.replace(/{/g, ':').replace(/}/g, ''),
+      endpoint: getFormattedParameter(path),
       methods: Object.keys(paths[path]).map((method) => ({
         ...paths[path][method],
-        id: `${method}-${path}`,
+        id: `${method}-${getFormattedParameter(path)}`,
         method,
-        endpoint: path.replace(/{/g, ':').replace(/}/g, ''),
+        endpoint: getFormattedParameter(path),
         tag: paths[path][method].tags[0],
         slug: paths[path][method].summary.replace(/\s/g, '-').toLowerCase(),
         parameters: {
