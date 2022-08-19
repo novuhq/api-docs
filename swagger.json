@@ -720,7 +720,7 @@
       "post": {
         "operationId": "SubscribersController_createSubscriber",
         "summary": "Create subscriber",
-        "description": "Create subscriber with your internal id for subscriber",
+        "description": "Creates a subscriber entity, in the Novu platform. The subscriber will be later used to receive notifications, and access notification feeds. Communication credentials such as email, phone number, and 3 rd party credentials i.e slack tokens could be later associated to this entity.",
         "parameters": [
           
         ],
@@ -755,7 +755,7 @@
       "get": {
         "operationId": "SubscribersController_getSubscriber",
         "summary": "Get subscriber",
-        "description": "Get subscriber by your internal id for subscriber",
+        "description": "Get subscriber by your internal id used to identify the subscriber",
         "parameters": [
           {
             "name": "subscriberId",
@@ -785,7 +785,7 @@
       "put": {
         "operationId": "SubscribersController_updateSubscriber",
         "summary": "Update subscriber",
-        "description": "Update subscriber with your internal id for subscriber",
+        "description": "Used to update the subscriber entity with new information",
         "parameters": [
           {
             "name": "subscriberId",
@@ -825,7 +825,7 @@
       "delete": {
         "operationId": "SubscribersController_removeSubscriber",
         "summary": "Delete subscriber",
-        "description": "Delete subscriber with your internal id for subscriber",
+        "description": "Deletes a subscriber entity from the Novu platform",
         "parameters": [
           {
             "name": "subscriberId",
@@ -856,8 +856,8 @@
     "/v1/subscribers/{subscriberId}/credentials": {
       "put": {
         "operationId": "SubscribersController_updateSubscriberChannel",
-        "summary": "Update subscriber channel details",
-        "description": "Update subscribers channel details with your internal id for subscriber",
+        "summary": "Update subscriber credentials",
+        "description": "Subscriber credentials associated to the delivery methods such as slack and push tokens.",
         "parameters": [
           {
             "name": "subscriberId",
@@ -981,7 +981,7 @@
     "/v1/subscribers/{subscriberId}/notifications/feed": {
       "get": {
         "operationId": "SubscribersController_getNotificationsFeed",
-        "summary": "Get notifications in feed",
+        "summary": "Get a notification feed for a particular subscriber",
         "parameters": [
           {
             "name": "page",
@@ -2602,10 +2602,10 @@
         "properties": {
           "webhookUrl": {
             "type": "string",
-            "description": "Webhook url for chat notificaton"
+            "description": "Webhook url used by chat app integrations. The webhook should be obtained from the chat app provider."
           },
-          "notificationIdentifiers": {
-            "description": "Device token for push or chat notificaton",
+          "deviceTokens": {
+            "description": "Contains an array of the subscriber device tokens for a given provider. Used on Push integrations",
             "type": "array",
             "items": {
               "type": "string"
@@ -2651,7 +2651,8 @@
         "type": "object",
         "properties": {
           "_id": {
-            "type": "string"
+            "type": "string",
+            "description": "The internal id novu generated for your subscriber, this is not the subscriberId matching your query. See `subscriberId` for that"
           },
           "firstName": {
             "type": "string"
@@ -2670,7 +2671,7 @@
           },
           "subscriberId": {
             "type": "string",
-            "description": "Your internal identifire for subscriber"
+            "description": "The internal identifier you used to create this subscriber, usually correlates to the id the user in your systems"
           },
           "channels": {
             "description": "Channels settings for subscriber",
@@ -2730,7 +2731,7 @@
         "properties": {
           "subscriberId": {
             "type": "string",
-            "description": "Your internal identifire for subscriber"
+            "description": "The internal identifier you used to create this subscriber, usually correlates to the id the user in your systems"
           },
           "email": {
             "type": "string"
@@ -2746,7 +2747,7 @@
           },
           "avatar": {
             "type": "string",
-            "description": "Url for avatar image of your subscriber"
+            "description": "An http url to the profile image of your subscriber"
           }
         },
         "required": [
@@ -2783,10 +2784,10 @@
               "discord",
               "fcm"
             ],
-            "description": "Subscriber credentials for channel"
+            "description": "The provider identifier for the credentials"
           },
           "credentials": {
-            "description": "Subscriber credentials for channel",
+            "description": "Credentials payload for the specified provider",
             "allOf": [
               {
                 "$ref": "#/components/schemas/ChannelCredentials"
@@ -2804,11 +2805,11 @@
         "properties": {
           "acknowledged": {
             "type": "boolean",
-            "description": "If subscriber was deleted or not"
+            "description": "A boolean stating the success of the action"
           },
           "status": {
             "type": "string",
-            "description": "Status for subscriber",
+            "description": "The status enum for the performed action",
             "enum": [
               "deleted"
             ]
@@ -2829,7 +2830,8 @@
             "type": "string"
           },
           "critical": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Critical templates will always be delivered to the end user and should be hidden from the subscriber preferences screen"
           }
         },
         "required": [
@@ -3108,7 +3110,7 @@
           "providerId": {
             "type": "string"
           },
-          "notificationIdentifiers": {
+          "deviceTokens": {
             "type": "array",
             "items": {
               "type": "string"
@@ -3142,19 +3144,11 @@
           },
           "payload": {
             "type": "object",
-            "description": "Oayload with data to be used inside of message templates",
-            "example": {
-              "name": "Novu"
-            }
+            "description": "The payload that was used to send the notification trigger"
           },
           "overrides": {
             "type": "object",
-            "description": "Overrides for push notification settings",
-            "example": {
-              "fcm": {
-                "color": "#fff"
-              }
-            }
+            "description": "Provider specific overrides used when triggering the notification"
           },
           "subject": {
             "type": "string"
