@@ -1,64 +1,6 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/v1/users/me": {
-      "get": {
-        "operationId": "UsersController_getMyProfile",
-        "summary": "Get User",
-        "parameters": [
-          
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Users"
-        ]
-      }
-    },
-    "/v1/users/onboarding": {
-      "put": {
-        "operationId": "UsersController_updateOnBoarding",
-        "summary": "Update onboarding",
-        "parameters": [
-          
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserOnboardingRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Users"
-        ]
-      }
-    },
     "/v1/environments/me": {
       "get": {
         "operationId": "EnvironmentsController_getCurrentEnvironment",
@@ -984,6 +926,14 @@
         "summary": "Get a notification feed for a particular subscriber",
         "parameters": [
           {
+            "name": "subscriberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "page",
             "required": true,
             "in": "query",
@@ -992,19 +942,19 @@
             }
           },
           {
+            "name": "feedIdentifier",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "seen",
             "required": true,
             "in": "query",
             "schema": {
               "type": "boolean"
-            }
-          },
-          {
-            "name": "subscriberId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -1031,7 +981,7 @@
     "/v1/subscribers/{subscriberId}/notifications/unseen": {
       "get": {
         "operationId": "SubscribersController_getUnseenCount",
-        "summary": "Get unseen count",
+        "summary": "Get the unseen notification count for subscribers feed",
         "parameters": [
           {
             "name": "seen",
@@ -1070,7 +1020,7 @@
     "/v1/subscribers/{subscriberId}/messages/{messageId}/seen": {
       "post": {
         "operationId": "SubscribersController_markMessageAsSeen",
-        "summary": "Mark message as seen",
+        "summary": "Mark a subscriber feed message as seen",
         "parameters": [
           {
             "name": "messageId",
@@ -1109,7 +1059,7 @@
     "/v1/subscribers/{subscriberId}/messages/{messageId}/actions/{type}": {
       "post": {
         "operationId": "SubscribersController_markActionAsSeen",
-        "summary": "Mark action as seen",
+        "summary": "Mark message action as seen",
         "parameters": [
           {
             "name": "messageId",
@@ -1288,105 +1238,6 @@
         },
         "tags": [
           "Activity"
-        ]
-      }
-    },
-    "/v1/channels/email/settings": {
-      "put": {
-        "operationId": "ChannelsController_updateMailSettings",
-        "summary": "Update mail settings",
-        "parameters": [
-          
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMailSettingsRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateSettingsResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Channels"
-        ]
-      }
-    },
-    "/v1/channels/sms/settings": {
-      "put": {
-        "operationId": "ChannelsController_updateSmsSettings",
-        "summary": "Update sms settings",
-        "parameters": [
-          
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateSmsSettingsRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateSettingsResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Channels"
-        ]
-      }
-    },
-    "/v1/storage/upload-url": {
-      "get": {
-        "operationId": "StorageController_signedUrl",
-        "summary": "Get upload url",
-        "parameters": [
-          {
-            "name": "extension",
-            "required": true,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UploadUrlResponse"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Storage"
         ]
       }
     },
@@ -1685,10 +1536,6 @@
       "description": ""
     },
     {
-      "name": "Channels",
-      "description": ""
-    },
-    {
       "name": "Environments",
       "description": ""
     },
@@ -1705,10 +1552,6 @@
       "description": ""
     },
     {
-      "name": "Storage",
-      "description": ""
-    },
-    {
       "name": "Users",
       "description": ""
     }
@@ -1718,57 +1561,6 @@
   ],
   "components": {
     "schemas": {
-      "UserResponseDto": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string"
-          },
-          "resetToken": {
-            "type": "string"
-          },
-          "resetTokenDate": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "profilePicture": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string"
-          },
-          "showOnBoarding": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "_id",
-          "firstName",
-          "lastName",
-          "email",
-          "profilePicture",
-          "createdAt"
-        ]
-      },
-      "UserOnboardingRequestDto": {
-        "type": "object",
-        "properties": {
-          "showOnBoarding": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "showOnBoarding"
-        ]
-      },
       "ApiKey": {
         "type": "object",
         "properties": {
@@ -3244,103 +3036,6 @@
         "required": [
           "_id",
           "count"
-        ]
-      },
-      "UpdateMailSettingsRequestDto": {
-        "type": "object",
-        "properties": {
-          "senderEmail": {
-            "type": "string"
-          },
-          "senderName": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "senderEmail",
-          "senderName"
-        ]
-      },
-      "UpdateSettingsResponseDto": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "_organizationId": {
-            "type": "string"
-          },
-          "identifier": {
-            "type": "string"
-          },
-          "apiKeys": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ApiKey"
-            }
-          },
-          "widget": {
-            "$ref": "#/components/schemas/WidgetSettings"
-          },
-          "_parentId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name",
-          "_organizationId",
-          "identifier",
-          "apiKeys",
-          "widget",
-          "_parentId"
-        ]
-      },
-      "Twilio": {
-        "type": "object",
-        "properties": {
-          "authToken": {
-            "type": "string"
-          },
-          "accountSid": {
-            "type": "string"
-          },
-          "phoneNumber": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "authToken",
-          "accountSid",
-          "phoneNumber"
-        ]
-      },
-      "UpdateSmsSettingsRequestDto": {
-        "type": "object",
-        "properties": {
-          "twillio": {
-            "$ref": "#/components/schemas/Twilio"
-          }
-        },
-        "required": [
-          "twillio"
-        ]
-      },
-      "UploadUrlResponse": {
-        "type": "object",
-        "properties": {
-          "signedUrl": {
-            "type": "string"
-          },
-          "path": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "signedUrl",
-          "path"
         ]
       },
       "CredentialsDto": {
