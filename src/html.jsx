@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types, jsx-a11y/html-has-lang */
 import React from 'react';
 
-const fontsBasePath = '/api/fonts';
+const fontsBasePath = `${process.env.GATSBY_DEFAULT_SITE_URL}/api/fonts`;
 
 const fontsPaths = [
   '/brother-1816/brother-1816-book.woff2',
