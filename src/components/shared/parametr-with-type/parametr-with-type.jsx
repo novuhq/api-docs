@@ -72,11 +72,11 @@ const ParametrWithType = ({
           {isOpen && (
             <ul>
               {Object.keys(parameters).map((propertyName, index) => {
-                const { type, description, properties, items } = parameters[propertyName];
+                const { type, description, properties, items, allOf, oneOf } =
+                  parameters[propertyName];
 
-                const subParameters = properties || items?.properties;
-                const hasSubParameters =
-                  subParameters && subParameters && Object.keys(subParameters).length > 0;
+                const subParameters = properties || items?.properties || allOf || oneOf;
+                const hasSubParameters = subParameters && Object.keys(subParameters).length > 0;
 
                 return !hasSubParameters ? (
                   <li
@@ -102,6 +102,8 @@ const ParametrWithType = ({
                     subParameters={subParameters}
                     // eslint-disable-next-line react/prop-types
                     isRequired={subParameters?.required?.includes(propertyName)}
+                    key={index}
+                    {...parameters[propertyName]}
                   />
                 );
               })}
@@ -124,7 +126,7 @@ ParametrWithType.propTypes = {
       description: PropTypes.string,
       properties: PropTypes.objectOf(
         PropTypes.shape({
-          name: PropTypes.string.isRequired,
+          name: PropTypes.string,
           type: PropTypes.string,
           description: PropTypes.string,
         })
@@ -132,7 +134,7 @@ ParametrWithType.propTypes = {
       items: PropTypes.shape({
         properties: PropTypes.objectOf(
           PropTypes.shape({
-            name: PropTypes.string.isRequired,
+            name: PropTypes.string,
             type: PropTypes.string,
             description: PropTypes.string,
           })
@@ -146,7 +148,7 @@ ParametrWithType.propTypes = {
       description: PropTypes.string,
       properties: PropTypes.objectOf(
         PropTypes.shape({
-          name: PropTypes.string.isRequired,
+          name: PropTypes.string,
           type: PropTypes.string,
           description: PropTypes.string,
         })
@@ -154,7 +156,7 @@ ParametrWithType.propTypes = {
       items: PropTypes.shape({
         properties: PropTypes.objectOf(
           PropTypes.shape({
-            name: PropTypes.string.isRequired,
+            name: PropTypes.string,
             type: PropTypes.string,
             description: PropTypes.string,
           })

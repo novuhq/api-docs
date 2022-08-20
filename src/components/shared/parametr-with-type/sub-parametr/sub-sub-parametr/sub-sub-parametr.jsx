@@ -92,7 +92,7 @@ SubSubParametr.propTypes = {
       description: PropTypes.string,
       properties: PropTypes.objectOf(
         PropTypes.shape({
-          name: PropTypes.string.isRequired,
+          name: PropTypes.string,
           type: PropTypes.string,
           description: PropTypes.string,
         })
