@@ -951,7 +951,7 @@
           },
           {
             "name": "seen",
-            "required": true,
+            "required": false,
             "in": "query",
             "schema": {
               "type": "boolean"
@@ -1528,10 +1528,6 @@
       "description": ""
     },
     {
-      "name": "Auth",
-      "description": ""
-    },
-    {
       "name": "Changes",
       "description": ""
     },
@@ -1541,18 +1537,6 @@
     },
     {
       "name": "Feeds",
-      "description": ""
-    },
-    {
-      "name": "Invites",
-      "description": ""
-    },
-    {
-      "name": "Organizations",
-      "description": ""
-    },
-    {
-      "name": "Users",
       "description": ""
     }
   ],
@@ -2477,6 +2461,18 @@
           },
           "_environmentId": {
             "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "number"
           }
         },
         "required": [
@@ -2485,7 +2481,10 @@
           "email",
           "subscriberId",
           "_organizationId",
-          "_environmentId"
+          "_environmentId",
+          "deleted",
+          "createdAt",
+          "updatedAt"
         ]
       },
       "SubscribersResponseDto": {
@@ -2705,11 +2704,12 @@
       "EmailBlockStyles": {
         "type": "object",
         "properties": {
-          "textDirection": {
+          "textAlign": {
             "type": "string",
             "enum": [
-              "ltr",
-              "rtl"
+              "left",
+              "right",
+              "center"
             ]
           }
         }
