@@ -8,6 +8,7 @@ import Logo from 'images/logo.inline.svg';
 
 import MoonIcon from './images/moon.inline.svg';
 import SunIcon from './images/sun.inline.svg';
+import Search from './search';
 
 const Header = ({ menuItems }) => {
   const [selectValue, setSelectValue] = useState('');
@@ -51,6 +52,8 @@ const Header = ({ menuItems }) => {
           <span className="sr-only">Novu API Reference</span>
           <Logo className="h-8" aria-hidden />
         </Link>
+
+        <Search />
 
         <div className="flex space-x-3.5">
           <div className="relative z-10 hidden items-center lg:flex">

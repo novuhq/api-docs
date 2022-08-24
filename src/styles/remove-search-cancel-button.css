@@ -1,0 +1,8 @@
+@layer utilities {
+  .remove-search-cancel-button {
+    &::-webkit-search-cancel-button {
+      appearance: none;
+      -webkit-appearance: none;
+    }
+  }
+}
