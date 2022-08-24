@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Link from 'components/shared/link';
 import LINKS from 'constants/links';
 import ArrowIcon from 'icons/arrow.inline.svg';
+import DiscordIcon from 'icons/discord.inline.svg';
+import DocsIcon from 'icons/docs.inline.svg';
+import GitHubIcon from 'icons/github.inline.svg';
 import Logo from 'images/logo.inline.svg';
 
 import MoonIcon from './images/moon.inline.svg';
@@ -72,18 +75,50 @@ const Header = ({ menuItems }) => {
             <ArrowIcon className="absolute right-0 -z-10 mt-0.5 h-1.5 dark:text-gray-8" />
           </div>
 
-          <ul>
+          <ul className="flex items-center space-x-1.5">
+            <li className="md:hidden">
+              <Link
+                className="flex items-center space-x-2 px-2 transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
+                {...LINKS.documentation}
+              >
+                {/* TODO: Update the logo for the item */}
+                <DocsIcon className="h-5 text-gray-4 dark:text-white" />
+                <span className="text-sm">Documentation</span>
+              </Link>
+            </li>
+            <li className="md:hidden">
+              <Link
+                className="flex items-center space-x-2 px-2 transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
+                {...LINKS.github}
+              >
+                <GitHubIcon className="h-5 text-gray-4 dark:text-white" />
+                <span className="text-sm">GitHub</span>
+              </Link>
+            </li>
+            <li className="md:hidden">
+              <Link
+                className="flex items-center space-x-2 px-2 transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
+                {...LINKS.discord}
+              >
+                <DiscordIcon className="h-5 w-[27px] text-gray-4 dark:text-white" />
+                <span className="text-sm">Community</span>
+              </Link>
+            </li>
             <li>
               <button
-                className="block transition-colors duration-200 hover:text-secondary-2 dark:hidden"
+                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#e9edf0] dark:hidden"
                 type="button"
+                title="Switch between dark and light mode (currently light mode)"
+                aria-label="Switch between dark and light mode (currently light mode)"
                 onClick={() => setSelectedTheme('dark')}
               >
                 <MoonIcon className="h-6" />
               </button>
               <button
-                className="hidden transition-colors duration-200 hover:text-secondary-2 dark:block"
+                className="hidden h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#444950] dark:flex"
                 type="button"
+                title="Switch between dark and light mode (currently dark mode)"
+                aria-label="Switch between dark and light mode (currently dark mode)"
                 onClick={() => setSelectedTheme('light')}
               >
                 <SunIcon className="h-6" />
