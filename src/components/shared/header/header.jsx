@@ -4,9 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'components/shared/link';
 import LINKS from 'constants/links';
 import ArrowIcon from 'icons/arrow.inline.svg';
-import DiscordIcon from 'icons/discord.inline.svg';
-import DocsIcon from 'icons/docs.inline.svg';
-import GitHubIcon from 'icons/github.inline.svg';
 import Logo from 'images/logo.inline.svg';
 
 import MoonIcon from './images/moon.inline.svg';
@@ -78,32 +75,29 @@ const Header = ({ menuItems }) => {
           <ul className="flex items-center space-x-1.5">
             <li className="md:hidden">
               <Link
-                className="flex items-center space-x-2 px-2 transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
+                className="flex items-center space-x-2 px-2 text-sm transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
                 {...LINKS.documentation}
               >
-                {/* TODO: Update the logo for the item */}
-                <DocsIcon className="h-5 text-gray-4 dark:text-white" />
-                <span className="text-sm">Documentation</span>
+                Documentation
               </Link>
             </li>
             <li className="md:hidden">
               <Link
-                className="flex items-center space-x-2 px-2 transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
+                className="flex items-center space-x-2 px-2 text-sm transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
                 {...LINKS.github}
               >
-                <GitHubIcon className="h-5 text-gray-4 dark:text-white" />
-                <span className="text-sm">GitHub</span>
+                GitHub
               </Link>
             </li>
             <li className="md:hidden">
               <Link
-                className="flex items-center space-x-2 px-2 transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
+                className="flex items-center space-x-2 px-2 text-sm transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
                 {...LINKS.discord}
               >
-                <DiscordIcon className="h-5 w-[27px] text-gray-4 dark:text-white" />
-                <span className="text-sm">Community</span>
+                Community
               </Link>
             </li>
+            <span className="!mr-1.5 !ml-3 flex h-6 w-px bg-gray-10 dark:bg-gray-3" aria-hidden />
             <li>
               <button
                 className="flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-200 hover:bg-[#e9edf0] dark:hidden"
