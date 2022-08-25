@@ -4,8 +4,7 @@ slug: client-libraries
 sort: 2
 ---
 
-Novu offers native SDKs in several popular programming languages:
+Novu offers native SDK in several popular programming languages:
 
-- [Node JS](https://nodejs.org/en/)
-
-- [Python](https://www.python.org/)
+- [Go Lang](https://github.com/novuhq/go-novu)
+- [Node.js](https://github.com/novuhq/novu/tree/main/packages/node)

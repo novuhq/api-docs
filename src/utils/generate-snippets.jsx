@@ -12,6 +12,7 @@ const response = await fetch('https://api.novu.app${endpoint}', {
     method !== 'get' && parameters?.body?.properties
       ? `headers: {
     'Content-Type': 'application/json',
+    'Authorization': 'ApiKey REPLACE_WITH_API_KEY',
   },
   body: JSON.stringify({
     ${Object.keys(parameters?.body?.properties)
@@ -31,11 +32,9 @@ const data = await response.json();
   {
     label: 'cURL',
     language: 'bash',
-    content: `curl -X ${method.toUpperCase()}
-    ${
+    content: `curl -X ${method.toUpperCase()} \\\n -H "Authorization: ApiKey REPLACE_WITH_API_KEY" \\\n${
       parameters?.body?.properties
-        ? `-H "Content-Type: application/json"
-    -d ` +
+        ? ` -H "Content-Type: application/json" \\\n -d ` +
           `'{
       ${Object.keys(parameters?.body?.properties)
         .map((name) => {
@@ -44,11 +43,9 @@ const data = await response.json();
         })
         .filter((item) => !!item)
         .join(',\n      ')}
-      }'    
-    `
+    }' \\\n`
         : ''
-    }
-  https://api.novu.app${endpoint}`,
+    }https://api.novu.app${endpoint}`,
   },
   {
     label: 'Python',
@@ -71,6 +68,7 @@ response = requests.${method.toLowerCase()}('https://api.novu.app${endpoint}'${
         .join(',\n      ')}\n` +
           `}, headers={
     'Content-Type': 'application/json'
+    'Authorization': 'ApiKey REPLACE_WITH_API_KEY'
 }`
         : ''
     })
@@ -106,6 +104,7 @@ request.body = '{
   }
 }'
 request.content_type = 'application/json'
+request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
 
 
 response = http.request(request)
@@ -140,6 +139,7 @@ $data = array(
 $options = array(
   "http" => array(
   "header"  => "Content-type: application/json",
+  "header"  => "Authorization: ApiKey REPLACE_WITH_API_KEY",
   "method"  => "${method.toUpperCase()}",
   "content" => json_encode($data)
   )
@@ -183,7 +183,10 @@ func main() {
     }
   }
   jsonValue, _ := json.Marshal(data)
-  resp, _ := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
+  req, _ := http.NewRequest("${method.toUpperCase()}", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
   defer resp.Body.Close()
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
