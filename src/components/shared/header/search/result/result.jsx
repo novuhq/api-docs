@@ -51,7 +51,7 @@ const HitCount = connectStateResults(({ searchResults }) => {
   const query = searchResults?.query;
   return (
     <div className="px-3 py-2.5 text-xs">
-      <span className="text-gray-8">
+      <span className="text-gray-2 dark:text-gray-8">
         {hitCount || 'No'} result{hitCount !== 1 || hitCount === 0 ? `s` : ``} for
       </span>{' '}
       &quot;{query}&quot;
@@ -61,14 +61,19 @@ const HitCount = connectStateResults(({ searchResults }) => {
 
 const Hits = connectHits(({ hits, showAll }) =>
   hits?.length ? (
-    <ul className="divide-y divide-gray-3 px-3">
+    <ul className="divide-y divide-gray-10 px-3 dark:divide-gray-4">
       {hits.slice(0, showAll ? hits.length : 5).map((hit) => (
         <li className="py-2.5 first:pt-1.5" key={hit.objectID}>
           <Link className="group" to={`#${hit.slug}`}>
-            <h4 className="group-hover:text-primary-2 text-sm font-bold transition-colors duration-200">
-              <Highlight attribute="title" hit={hit} tagName="mark" />
+            <h4 className="text-sm font-medium transition-colors duration-200 group-hover:text-primary-2 dark:group-hover:text-primary-1">
+              <Highlight
+                className=" marker:text-secondary-1"
+                attribute="title"
+                hit={hit}
+                tagName="mark"
+              />
             </h4>
-            <p className="mt-1.5 block text-xs">
+            <p className="mt-1.5 block text-xs font-book dark:text-gray-8">
               <Highlight attribute="excerpt" hit={hit} tagName="mark" />
             </p>
           </Link>
@@ -109,23 +114,23 @@ const Result = ({ indices }) => {
     controls.start('start').then(() => controls.start('finish').then(() => setCanAnimate(true)));
   };
   return (
-    <div className="card-shadow pointer-events-auto visible absolute inset-x-0 top-full z-50 w-full rounded-b border border-t-0 border-gray-2 bg-white opacity-100 transition-[opacity,visibility] duration-200">
+    <div className="card-shadow pointer-events-auto visible absolute inset-x-0 top-full z-50 w-full rounded-b border border-t-0 border-gray-9 bg-white opacity-100 transition-[opacity,visibility] duration-200 dark:border-gray-5 dark:bg-black">
       <div className="max-h-[50vh] overflow-y-scroll sm:max-h-[70vh]">
         {indices.map((index) => (
           <HitsInIndex allResultsShown={allResultsShown} index={index} key={index.name} />
         ))}
       </div>
-      <div className="flex rounded-b border-t border-gray-5 p-3">
+      <div className="flex rounded-b border-t border-gray-9 p-3 dark:border-gray-5">
         {!allResultsShown && (
           <button
-            className="hover:text-primary-2 relative flex pb-1.5 text-xs font-bold uppercase leading-none transition-colors duration-200"
+            className="relative flex pb-1.5 text-xs font-bold uppercase leading-none transition-colors duration-200 hover:text-primary-2 dark:hover:text-primary-1"
             type="button"
             onClick={handleAllResultsClick}
             onMouseEnter={handleHover}
           >
             View all
             <motion.span
-              className="bg-primary-2 absolute bottom-0 left-0 h-0.5 w-full rounded-full"
+              className="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-primary-2 dark:bg-primary-1"
               initial="initial"
               variants={underlineVariants}
               animate={controls}
@@ -139,10 +144,10 @@ const Result = ({ indices }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="text-xs leading-none text-gray-8 transition-colors duration-200 group-hover:text-black">
-            Search By Algolia
+          <span className="text-xs font-book leading-none text-gray-4 transition-colors duration-200 group-hover:text-primary-2 dark:text-[#F5F5F5] dark:group-hover:text-primary-1">
+            Search by Algolia
           </span>
-          <AlgoliaLogo className="h-4 shrink-0" />
+          <AlgoliaLogo className="h-4 shrink-0 text-gray-4 dark:text-[#F5F5F5]" />
         </Link>
       </div>
     </div>

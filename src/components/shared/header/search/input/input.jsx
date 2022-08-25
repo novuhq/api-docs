@@ -6,7 +6,7 @@ import SearchIcon from '../images/search.inline.svg';
 import CommandKeyIcon from './images/command-key.inline.svg';
 import ResetIcon from './images/reset.inline.svg';
 
-export default connectSearchBox(({ refine, currentRefinement }) => {
+export default connectSearchBox(({ isShowResult, setIsActive, refine, currentRefinement }) => {
   const ref = useRef(null);
 
   const [isFocus, setIsFocus] = useState(false);
@@ -44,7 +44,7 @@ export default connectSearchBox(({ refine, currentRefinement }) => {
       </label>
 
       <input
-        className="remove-search-cancel-button absoulte h-full w-full cursor-pointer appearance-none overflow-hidden rounded-md border border-gray-9 bg-transparent px-8 pl-10 text-[16px] leading-none outline-none transition-colors duration-200 focus:border-[#0055ff] group-hover:border-[#0055ff] dark:border-gray-5 dark:focus:border-primary-1 dark:group-hover:border-primary-1"
+        className="remove-search-cancel-button absoulte h-full w-full cursor-pointer appearance-none overflow-hidden rounded-md border border-gray-9 bg-transparent px-8 pl-10 text-[16px] leading-none outline-none transition-colors duration-200 focus:border-primary-2 group-hover:border-primary-2 dark:border-gray-5 dark:focus:border-primary-1 dark:group-hover:border-primary-1"
         aria-label="Search"
         type="search"
         value={currentRefinement}
@@ -53,13 +53,16 @@ export default connectSearchBox(({ refine, currentRefinement }) => {
         autoComplete="off"
         ref={ref}
         onChange={(e) => refine(e.target.value)}
-        onFocus={() => setIsFocus(true)}
+        onFocus={() => {
+          setIsFocus(true);
+          setIsActive(true);
+        }}
         onBlur={() => setIsFocus(false)}
       />
 
       <SearchIcon className="absolute left-3 h-4 text-black dark:text-white" />
 
-      {!isFocus && (
+      {!isFocus && !isShowResult && (
         <div className="absolute right-2.5 flex space-x-1.5" aria-hidden>
           <span className="flex h-5 w-5 items-center justify-center rounded-[3px] border border-gray-10 bg-gray-11 dark:border-gray-5 dark:bg-gray-4">
             <CommandKeyIcon className="h-3 text-gray-4 dark:text-gray-9" />
@@ -72,7 +75,7 @@ export default connectSearchBox(({ refine, currentRefinement }) => {
 
       {currentRefinement && (
         <button className="absolute right-0 p-2.5" type="button" onClick={reset}>
-          <ResetIcon className="h-3.5" />
+          <ResetIcon className="h-2.5" />
         </button>
       )}
     </form>

@@ -54,8 +54,8 @@ const Navigation = ({ items, location }) => {
                         className={clsx(
                           'block w-full px-3.5 py-2.5 text-sm font-book leading-snug text-gray-4 transition-colors duration-200 dark:text-gray-10',
                           link.path === activePath
-                            ? 'bg-[rgba(0,85,255,0.08)] !font-medium text-[#0055FF] dark:bg-[rgba(0,213,255,0.12)] dark:!text-primary-1'
-                            : 'hover:bg-[rgba(0,85,255,0.08)] hover:text-[#0055FF] dark:hover:bg-[rgba(0,213,255,0.12)] dark:hover:text-primary-1'
+                            ? 'bg-[rgba(0,85,255,0.08)] !font-medium text-primary-2 dark:bg-[rgba(0,213,255,0.12)] dark:!text-primary-1'
+                            : 'hover:bg-[rgba(0,85,255,0.08)] hover:text-primary-2 dark:hover:bg-[rgba(0,213,255,0.12)] dark:hover:text-primary-1'
                         )}
                         to={`#${link.path}`}
                       >

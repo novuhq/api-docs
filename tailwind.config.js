@@ -38,6 +38,7 @@ module.exports = {
       white: '#ffffff',
       primary: {
         1: '#00D5FF',
+        2: '#0055FF',
       },
       secondary: {
         1: '#FF33DE',
@@ -58,6 +59,7 @@ module.exports = {
         9: '#CCCCCC',
         10: '#E6E6E6',
         11: '#F5F5F5',
+        12: '#FAFAFA',
       },
     }),
     screens: {
