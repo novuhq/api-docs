@@ -22,7 +22,7 @@ const Header = ({ isMobileMenuOpen, onBurgerClick }) => {
         }
       )}
     >
-      <div className="container flex h-16 items-center justify-between sm:space-x-2.5">
+      <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center lg:space-x-4">
           <Burger
             className="hidden lg:block"
