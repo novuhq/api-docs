@@ -48,11 +48,11 @@ const Layout = ({ children, pageContext, location }) => {
       navigationType === 'desktop'
         ? document.querySelector('#navigation')
         : document.querySelector('#mobile-navigation');
+    const item = container.querySelector(`li[data-hash="${hash}"]`);
 
-    if (!container) return;
+    if (!container || !item) return;
 
     const containerRect = container.getBoundingClientRect();
-    const item = container.querySelector(`li[data-hash="${hash}"]`);
     const itemRect = item.getBoundingClientRect();
 
     container.scrollTop += itemRect.top - containerRect.top - 200;
