@@ -5,7 +5,7 @@ require('dotenv').config();
 module.exports = {
   flags: { DEV_SSR: process.env.GATSBY_DEV_SSR || false },
   pathPrefix: '/api',
-  assetPrefix: `https://novuapidocs.gatsbyjs.io`,
+  assetPrefix: process.env.GATSBY_DEFAULT_SITE_URL,
   trailingSlash: 'always',
   siteMetadata: {
     siteTitle: 'Novu API',
