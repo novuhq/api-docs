@@ -1,13 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Footer from 'components/shared/footer';
 import Header from 'components/shared/header';
+import MobileMenu from 'components/shared/mobile-menu';
 import SEO from 'components/shared/seo';
 
 import Navigation from '../navigation';
 
 const Layout = ({ children, pageContext, location }) => {
+  const [activePath, setActivePath] = useState(location.hash.slice(1));
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleHeaderBurgerClick = () => setIsMobileMenuOpen((prevState) => !prevState);
+
   const handleChangeUrl = (customEvent) => () => {
     const sections = document.querySelectorAll('main > section');
     const offsetTop = window.pageYOffset;
@@ -37,31 +43,74 @@ const Layout = ({ children, pageContext, location }) => {
     });
   };
 
+  const handleScrollToActiveNavItem = (hash, navigationType) => {
+    const container =
+      navigationType === 'desktop'
+        ? document.querySelector('#navigation')
+        : document.querySelector('#mobile-navigation');
+
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const item = container.querySelector(`li[data-hash="${hash}"]`);
+    const itemRect = item.getBoundingClientRect();
+
+    container.scrollTop += itemRect.top - containerRect.top - 200;
+  };
+
+  const handleChangeActiveNavItem = useCallback((navigationType) => {
+    const hash = window.location.hash.replace('#', '');
+
+    setActivePath(hash);
+    handleScrollToActiveNavItem(hash, navigationType);
+  }, []);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const customEvent = new Event('changeUrl');
 
+      handleChangeActiveNavItem('desktop');
+
       window.addEventListener('scroll', handleChangeUrl(customEvent));
+      window.addEventListener('changeUrl', () => handleChangeActiveNavItem('desktop'));
 
       return () => {
         window.removeEventListener('scroll', handleChangeUrl(customEvent));
+        window.removeEventListener('changeUrl', () => handleChangeActiveNavItem('desktop'));
       };
     }
 
     return null;
-  }, []);
+  }, [handleChangeActiveNavItem]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && isMobileMenuOpen) {
+      handleChangeActiveNavItem('mobile');
+    }
+
+    return null;
+  }, [isMobileMenuOpen, handleChangeActiveNavItem]);
 
   return (
     <>
       <SEO />
-      <Header menuItems={pageContext.menu} />
+      <Header
+        isMobileMenuOpen={isMobileMenuOpen}
+        menuItems={pageContext.menu}
+        onBurgerClick={handleHeaderBurgerClick}
+      />
       <div className="container flex">
-        <Navigation items={pageContext.menu} location={location} />
+        <Navigation items={pageContext.menu} activePath={activePath} />
         <div className="min-w-0 max-w-none flex-auto pb-16 pt-16 pl-8 lg:pl-0">
           <main>{children}</main>
         </div>
       </div>
-
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        menuItems={pageContext.menu}
+        activePath={activePath}
+        setIsOpen={setIsMobileMenuOpen}
+      />
       <Footer />
     </>
   );

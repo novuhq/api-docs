@@ -59,12 +59,12 @@ const HitCount = connectStateResults(({ searchResults }) => {
   );
 });
 
-const Hits = connectHits(({ hits, showAll }) =>
+const Hits = connectHits(({ hits, showAll, setIsActive }) =>
   hits?.length ? (
     <ul className="divide-y divide-gray-10 px-3 dark:divide-gray-4">
       {hits.slice(0, showAll ? hits.length : 5).map((hit) => (
         <li className="py-2.5 first:pt-1.5" key={hit.objectID}>
-          <Link className="group" to={`#${hit.slug}`}>
+          <Link className="group" to={`#${hit.slug}`} onClick={() => setIsActive(false)}>
             <h4 className="text-sm font-medium transition-colors duration-200 group-hover:text-primary-2 dark:group-hover:text-primary-1">
               <Highlight
                 className=" marker:text-secondary-1"
@@ -73,7 +73,7 @@ const Hits = connectHits(({ hits, showAll }) =>
                 tagName="mark"
               />
             </h4>
-            <p className="mt-1.5 block text-xs font-book dark:text-gray-8">
+            <p className="mt-1.5 block text-xs font-book leading-tight dark:text-gray-8">
               <Highlight attribute="excerpt" hit={hit} tagName="mark" />
             </p>
           </Link>
@@ -83,14 +83,7 @@ const Hits = connectHits(({ hits, showAll }) =>
   ) : null
 );
 
-const HitsInIndex = ({ index, allResultsShown }) => (
-  <Index indexName={index.name}>
-    <HitCount />
-    <Hits showAll={allResultsShown} />
-  </Index>
-);
-
-const Result = ({ indices }) => {
+const Result = ({ indices, setIsActive }) => {
   const [canAnimate, setCanAnimate] = useState(true);
   const controls = useAnimation();
 
@@ -117,7 +110,10 @@ const Result = ({ indices }) => {
     <div className="card-shadow pointer-events-auto visible absolute inset-x-0 top-full z-50 w-full rounded-b border border-t-0 border-gray-9 bg-white opacity-100 transition-[opacity,visibility] duration-200 dark:border-gray-5 dark:bg-black">
       <div className="max-h-[50vh] overflow-y-scroll sm:max-h-[70vh]">
         {indices.map((index) => (
-          <HitsInIndex allResultsShown={allResultsShown} index={index} key={index.name} />
+          <Index indexName={index.name} key={index.name}>
+            <HitCount />
+            <Hits showAll={allResultsShown} setIsActive={setIsActive} />
+          </Index>
         ))}
       </div>
       <div className="flex rounded-b border-t border-gray-9 p-3 dark:border-gray-5">
