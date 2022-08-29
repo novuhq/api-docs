@@ -16,13 +16,13 @@
         @apply relative;
 
         &::before {
-          @apply absolute top-2.5 -left-2.5 h-1.5 w-1.5 -translate-x-full rounded-full bg-[#0055FF] content-[''] dark:bg-primary-1;
+          @apply absolute top-2.5 -left-2.5 h-1.5 w-1.5 -translate-x-full rounded-full bg-primary-2 content-[''] dark:bg-primary-1;
         }
       }
     }
 
     a {
-      @apply relative font-normal text-[#0055FF] transition-colors duration-200 hover:text-white dark:text-primary-1;
+      @apply relative font-normal text-primary-2 decoration-transparent underline-offset-[3px] transition-all duration-200 hover:underline hover:decoration-primary-2 dark:text-primary-1 dark:hover:text-white dark:hover:no-underline;
     }
   }
 }
