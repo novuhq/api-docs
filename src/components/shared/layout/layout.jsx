@@ -9,7 +9,7 @@ import SEO from 'components/shared/seo';
 import Navigation from '../navigation';
 
 const Layout = ({ children, pageContext, location }) => {
-  const [activePath, setActivePath] = useState(location.hash.slice(1));
+  const [activePath, setActivePath] = useState(location.pathname.replace(/[/]/g, ''));
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleHeaderBurgerClick = () => setIsMobileMenuOpen((prevState) => !prevState);
@@ -34,7 +34,7 @@ const Layout = ({ children, pageContext, location }) => {
             id: section.id,
           },
           '',
-          `#${section.id}`
+          `/${section.id}/`
         );
         window.dispatchEvent(customEvent);
       }
@@ -43,12 +43,12 @@ const Layout = ({ children, pageContext, location }) => {
     });
   };
 
-  const handleScrollToActiveNavItem = (hash, navigationType) => {
+  const handleScrollToActiveNavItem = (path, navigationType) => {
     const container =
       navigationType === 'desktop'
         ? document.querySelector('#navigation')
         : document.querySelector('#mobile-navigation');
-    const item = container.querySelector(`li[data-hash="${hash}"]`);
+    const item = container.querySelector(`li[data-path="${path}"]`);
 
     if (!container || !item) return;
 
@@ -59,10 +59,10 @@ const Layout = ({ children, pageContext, location }) => {
   };
 
   const handleChangeActiveNavItem = useCallback((navigationType) => {
-    const hash = window.location.hash.replace('#', '');
+    const path = window.location.pathname.replace(/[/]/g, '');
 
-    setActivePath(hash);
-    handleScrollToActiveNavItem(hash, navigationType);
+    setActivePath(path);
+    handleScrollToActiveNavItem(path, navigationType);
   }, []);
 
   useEffect(() => {
@@ -81,6 +81,7 @@ const Layout = ({ children, pageContext, location }) => {
     }
 
     return null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleChangeActiveNavItem]);
 
   useEffect(() => {

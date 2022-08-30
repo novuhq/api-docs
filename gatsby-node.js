@@ -2,16 +2,53 @@ const path = require('path');
 
 const getAllData = require('./src/utils/get-all-data');
 
-async function createMainPage({ actions, menu, pages }) {
-  const { createPage } = actions;
+async function createPages({ graphql, actions, menu, pages }) {
+  const { createPage, createRedirect } = actions;
 
-  createPage({
-    path: '/',
-    component: path.resolve('./src/templates/main.jsx'),
-    context: {
-      menu,
-      sections: pages,
-    },
+  const {
+    data: { customPages },
+  } = await graphql(`
+    {
+      customPages: allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/pages/" } }) {
+        nodes {
+          id
+          frontmatter {
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  pages.forEach((page) => {
+    page.methods.forEach((method) => {
+      createPage({
+        path: method.slug,
+        component: path.resolve('./src/templates/main.jsx'),
+        context: {
+          id: method.id,
+          menu,
+          sections: pages,
+        },
+      });
+    });
+  });
+
+  customPages.nodes.forEach(({ frontmatter: { slug } }) => {
+    createPage({
+      path: slug,
+      component: path.resolve('./src/templates/main.jsx'),
+      context: {
+        id: slug,
+        menu,
+        sections: pages,
+      },
+    });
+  });
+
+  createRedirect({
+    fromPath: `/`,
+    toPath: `/overview/`,
   });
 }
 
@@ -37,6 +74,6 @@ exports.createPages = async (args) => {
     methods,
   };
 
-  await createMainPage(params);
+  await createPages(params);
   await createNotFoundPage(params);
 };
