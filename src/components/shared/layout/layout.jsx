@@ -4,12 +4,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Footer from 'components/shared/footer';
 import Header from 'components/shared/header';
 import MobileMenu from 'components/shared/mobile-menu';
+import Navigation from 'components/shared/navigation';
 import SEO from 'components/shared/seo';
-
-import Navigation from '../navigation';
+import getPathWithoutPrefix from 'utils/get-path-without-prefix';
 
 const Layout = ({ seo, children, pageContext, location }) => {
-  const [activePath, setActivePath] = useState(location.pathname.replace(/[/]/g, ''));
+  const [activePath, setActivePath] = useState(getPathWithoutPrefix(location.pathname));
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleHeaderBurgerClick = () => setIsMobileMenuOpen((prevState) => !prevState);
@@ -34,7 +34,7 @@ const Layout = ({ seo, children, pageContext, location }) => {
             id: section.id,
           },
           '',
-          `/${section.id}/`
+          `/api/${section.id}/`
         );
         window.dispatchEvent(customEvent);
       }
@@ -59,7 +59,7 @@ const Layout = ({ seo, children, pageContext, location }) => {
   };
 
   const handleChangeActiveNavItem = useCallback((navigationType) => {
-    const path = window.location.pathname.replace(/[/]/g, '');
+    const path = getPathWithoutPrefix(window.location.pathname);
 
     setActivePath(path);
     handleScrollToActiveNavItem(path, navigationType);
