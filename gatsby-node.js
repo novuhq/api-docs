@@ -14,9 +14,9 @@ const PARAMETER_TYPES = {
 const getFormattedPath = (path) => path.replace(/{/g, ':').replace(/}/g, '');
 
 const getAllData = async () => {
-  const dataSwagger = await fetch('https://api.novu.co/api-json')
-    .then((response) => response.json())
-    .then((response) => response);
+  const dataSwagger = await fetch('https://api.novu.co/api-json').then((response) =>
+    response.json()
+  );
 
   const { paths, tags } = await SwaggerParser.dereference(dataSwagger);
 
