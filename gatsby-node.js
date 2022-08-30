@@ -1,8 +1,7 @@
 const path = require('path');
 
+const fetch = require(`node-fetch`);
 const SwaggerParser = require('@apidevtools/swagger-parser');
-
-const dataSwagger = require('./swagger.json');
 
 const PARAMETER_TYPES = {
   path: 'path',
@@ -15,6 +14,10 @@ const PARAMETER_TYPES = {
 const getFormattedPath = (path) => path.replace(/{/g, ':').replace(/}/g, '');
 
 const getAllData = async () => {
+  const dataSwagger = await fetch('https://api.novu.co/api-json').then((response) =>
+    response.json()
+  );
+
   const { paths, tags } = await SwaggerParser.dereference(dataSwagger);
 
   const pages = Object.keys(paths)
