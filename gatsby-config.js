@@ -10,7 +10,7 @@ module.exports = {
   siteMetadata: {
     siteTitle: 'Novu API',
     siteDescription: 'Site Description',
-    siteImage: '/images/social-preview.jpg',
+    siteImage: '/api/images/social-preview.jpg',
     siteLanguage: 'en',
     siteUrl: process.env.GATSBY_DEFAULT_SITE_URL || 'http://localhost:8000',
     authorName: 'Pixel Point',

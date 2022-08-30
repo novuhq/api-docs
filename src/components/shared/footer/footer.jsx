@@ -28,7 +28,12 @@ const Footer = () => (
             <ul className="space-y-2.5 lg:space-y-2 sm:space-y-1" key={index}>
               {links.map(({ to, text, target }, index) => (
                 <li key={index}>
-                  <Link className="hover:text-primary-1" to={to} size="base" target={target}>
+                  <Link
+                    className="hover:text-primary-2 dark:hover:text-primary-1"
+                    to={to}
+                    size="base"
+                    target={target}
+                  >
                     {text}
                   </Link>
                 </li>
@@ -50,7 +55,11 @@ const Footer = () => (
 
           <p className="text-sm leading-none text-gray-8 lg:hidden">
             Design made by{' '}
-            <Link className="hover:text-primary-1" rel="noopener" {...LINKS.pixelPoint}>
+            <Link
+              className="hover:text-primary-2 dark:hover:text-primary-1"
+              rel="noopener"
+              {...LINKS.pixelPoint}
+            >
               Pixel Point
             </Link>
           </p>
@@ -63,7 +72,11 @@ const Footer = () => (
         </p>
         <p className="text-sm leading-none text-gray-8">
           Design made by{' '}
-          <Link className="hover:text-primary-1" rel="noopener" {...LINKS.pixelPoint}>
+          <Link
+            className="hover:text-primary-2 dark:hover:text-primary-1"
+            rel="noopener"
+            {...LINKS.pixelPoint}
+          >
             Pixel Point
           </Link>
         </p>
