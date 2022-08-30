@@ -6,6 +6,8 @@
 @import './fonts.css';
 @import './global.css';
 @import './code-highlighting.css';
+@import '@docsearch/css';
+@import './search.css';
 
 /* Components */
 @import './container.css';

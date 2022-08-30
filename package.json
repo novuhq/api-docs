@@ -20,9 +20,9 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.1.0",
+    "@docsearch/react": "^3.2.1",
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
-    "algoliasearch": "^4.14.2",
     "clsx": "^1.1.1",
     "copy-to-clipboard": "^3.3.1",
     "framer-motion": "^6.3.11",
@@ -35,9 +35,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
-    "react-instantsearch-dom": "^6.31.1",
     "react-syntax-highlighter": "^15.5.0",
-    "react-use": "^17.4.0",
     "tailwindcss": "^3.1.2"
   },
   "devDependencies": {
