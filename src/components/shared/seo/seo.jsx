@@ -22,19 +22,22 @@ const SEO = ({ title, description }) => {
     }
   `);
 
+  const currentTitle = title ? `${title} - ${siteTitle}` : siteTitle;
+  const currentDescription = description ?? siteDescription;
+
   return (
     <Helmet
-      title={siteTitle || title}
+      title={currentTitle}
       htmlAttributes={{
         lang: siteLanguage,
         prefix: 'og: http://ogp.me/ns#',
       }}
     >
       {/* General */}
-      <meta name="description" content={siteDescription || description} />
+      <meta name="description" content={currentDescription} />
       {/* Open Graph */}
-      <meta property="og:title" content={siteTitle || title} />
-      <meta property="og:description" content={siteDescription || description} />
+      <meta property="og:title" content={currentTitle} />
+      <meta property="og:description" content={currentDescription} />
       <meta property="og:url" content={siteUrl} />
       <meta property="og:image" content={siteUrl + siteImage} />
       <meta property="og:type" content="website" />

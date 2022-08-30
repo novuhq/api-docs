@@ -13,6 +13,7 @@ async function createPages({ graphql, actions, menu, pages }) {
         nodes {
           id
           frontmatter {
+            title
             slug
           }
         }
@@ -29,12 +30,15 @@ async function createPages({ graphql, actions, menu, pages }) {
           id: method.id,
           menu,
           sections: pages,
+          seo: {
+            title: method.summary,
+          },
         },
       });
     });
   });
 
-  customPages.nodes.forEach(({ frontmatter: { slug } }) => {
+  customPages.nodes.forEach(({ frontmatter: { title, slug } }) => {
     createPage({
       path: slug,
       component: path.resolve('./src/templates/main.jsx'),
@@ -42,6 +46,9 @@ async function createPages({ graphql, actions, menu, pages }) {
         id: slug,
         menu,
         sections: pages,
+        seo: {
+          title,
+        },
       },
     });
   });

@@ -8,7 +8,7 @@ import SEO from 'components/shared/seo';
 
 import Navigation from '../navigation';
 
-const Layout = ({ children, pageContext, location }) => {
+const Layout = ({ seo, children, pageContext, location }) => {
   const [activePath, setActivePath] = useState(location.pathname.replace(/[/]/g, ''));
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -94,7 +94,7 @@ const Layout = ({ children, pageContext, location }) => {
 
   return (
     <>
-      <SEO />
+      <SEO {...seo} />
       <Header
         isMobileMenuOpen={isMobileMenuOpen}
         menuItems={pageContext.menu}
@@ -118,9 +118,17 @@ const Layout = ({ children, pageContext, location }) => {
 };
 
 Layout.propTypes = {
+  seo: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }),
   children: PropTypes.node.isRequired,
   pageContext: PropTypes.objectOf(PropTypes.any).isRequired,
   location: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
+Layout.defaultProps = {
+  seo: null,
 };
 
 export default Layout;
