@@ -54,8 +54,8 @@ async function createPages({ graphql, actions, menu, pages }) {
   });
 
   createRedirect({
-    fromPath: `/api`,
-    toPath: `/api/overview`,
+    fromPath: '/api',
+    toPath: '/overview',
   });
 }
 

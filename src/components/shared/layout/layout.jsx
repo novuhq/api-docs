@@ -101,7 +101,11 @@ const Layout = ({ seo, children, pageContext, location }) => {
         onBurgerClick={handleHeaderBurgerClick}
       />
       <div className="container flex">
-        <Navigation items={pageContext.menu} activePath={activePath} />
+        <Navigation
+          items={pageContext.menu}
+          activePath={activePath}
+          setActivePath={setActivePath}
+        />
         <div className="min-w-0 max-w-none flex-auto pb-16 pt-16 pl-8 lg:pl-0">
           <main>{children}</main>
         </div>
@@ -110,6 +114,7 @@ const Layout = ({ seo, children, pageContext, location }) => {
         isOpen={isMobileMenuOpen}
         menuItems={pageContext.menu}
         activePath={activePath}
+        setActivePath={setActivePath}
         setIsOpen={setIsMobileMenuOpen}
       />
       <Footer />

@@ -5,20 +5,10 @@
  */
 
 import getPathWithoutPrefix from 'utils/get-path-without-prefix';
+import scrollToSection from 'utils/scroll-to-section';
 import './src/styles/main.css';
 
-// scrolling to the section when navigating the site
-export const onRouteUpdate = ({ location }) => {
-  const id = getPathWithoutPrefix(location.pathname);
-
-  const section = id ? document.querySelector(`#${id}`) : null;
-  const headerOffset = 60;
-
-  if (section) {
-    const offsetPosition = section.getBoundingClientRect().top - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-    });
-  }
+export const onClientEntry = () => {
+  const id = getPathWithoutPrefix(window.location.pathname);
+  scrollToSection(id);
 };

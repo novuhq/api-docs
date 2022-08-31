@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
 import Link from 'components/shared/link';
+import scrollToSection from 'utils/scroll-to-section';
 
 const ANIMATION_DURATION = 0.2;
 
@@ -25,7 +26,7 @@ const variants = {
   },
 };
 
-const MobileMenu = ({ menuItems, activePath, isOpen, setIsOpen }) => {
+const MobileMenu = ({ menuItems, activePath, setActivePath, isOpen, setIsOpen }) => {
   const controls = useAnimation();
 
   useEffect(() => {
@@ -37,6 +38,15 @@ const MobileMenu = ({ menuItems, activePath, isOpen, setIsOpen }) => {
       document.body.style.touchAction = '';
     }
   }, [isOpen, controls]);
+
+  const handleLinkClick = (sectionId, event) => {
+    event.preventDefault();
+
+    setActivePath(sectionId);
+    scrollToSection(sectionId);
+
+    setIsOpen(false);
+  };
 
   return (
     <AnimatePresence>
@@ -86,7 +96,7 @@ const MobileMenu = ({ menuItems, activePath, isOpen, setIsOpen }) => {
                                 : 'hover:bg-[rgba(0,85,255,0.08)] hover:text-primary-2 dark:hover:bg-[rgba(0,213,255,0.12)] dark:hover:text-primary-1'
                             )}
                             to={`/${link.path}/`}
-                            onClick={() => setIsOpen(false)}
+                            onClick={(e) => handleLinkClick(link.path, e)}
                           >
                             {link.label}
                           </Link>
@@ -117,6 +127,7 @@ MobileMenu.propTypes = {
     })
   ).isRequired,
   activePath: PropTypes.string.isRequired,
+  setActivePath: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
   setIsOpen: PropTypes.func.isRequired,
 };
