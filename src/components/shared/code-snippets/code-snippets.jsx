@@ -31,7 +31,7 @@ const variants = {
   },
 };
 
-const CodeSnippets = ({ className, title, items }) => {
+const CodeSnippets = ({ className, title, method, endpoint, items }) => {
   const [selectValue, setSelectValue] = useState(items[0].label);
   const [selectList, setSelectList] = useState([]);
 
@@ -70,8 +70,17 @@ const CodeSnippets = ({ className, title, items }) => {
 
   return (
     <div className={clsx('rounded-md border border-gray-10 dark:border-none', className)}>
-      <div className="flex h-10 items-center justify-between space-x-1.5 rounded-t border-b border-gray-10 bg-white px-5 dark:border-none dark:bg-[#141414]">
-        <span className="text-xs font-bold uppercase text-gray-2 dark:text-gray-8">{title}</span>
+      <div className="flex items-center justify-between space-x-3 rounded-t border-b border-gray-10 bg-white py-[9px] px-5 dark:border-none dark:bg-[#141414] xl:space-x-8">
+        {method && endpoint ? (
+          <div className="flex items-start space-x-2">
+            <span className="text-xs font-bold uppercase text-gray-2 dark:text-gray-8">
+              {method}
+            </span>
+            <span className="break-all text-xs text-gray-2 dark:text-gray-8">{endpoint}</span>
+          </div>
+        ) : (
+          <span className="text-xs font-bold uppercase text-gray-2 dark:text-gray-8">{title}</span>
+        )}
 
         <div className="flex flex-shrink-0 space-x-7">
           <div className="relative z-10 flex items-center">
@@ -123,6 +132,8 @@ const CodeSnippets = ({ className, title, items }) => {
 CodeSnippets.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string.isRequired,
+  method: PropTypes.string,
+  endpoint: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -134,6 +145,8 @@ CodeSnippets.propTypes = {
 
 CodeSnippets.defaultProps = {
   className: null,
+  method: null,
+  endpoint: null,
 };
 
 export default CodeSnippets;

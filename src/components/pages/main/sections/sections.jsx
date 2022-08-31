@@ -138,19 +138,29 @@ const Sections = ({ sections, snippets, responses }) =>
           <div className="relative sm:mt-10">
             <div className="sticky top-16">
               {data.snippets && (
-                <CodeSnippets className="w-full" title={method.summary} items={data.snippets} />
+                <CodeSnippets
+                  className="w-full"
+                  method={method.method}
+                  endpoint={method.endpoint}
+                  items={data.snippets}
+                />
               )}
 
               {!data.snippets && !!defaultSnippets.length && (
-                <CodeSnippets className="w-full" title={method.summary} items={defaultSnippets} />
+                <CodeSnippets
+                  className="w-full"
+                  method={method.method}
+                  endpoint={method.endpoint}
+                  items={defaultSnippets}
+                />
               )}
 
               {data.responses && (
-                <CodeSnippets className="mt-10 w-full" title="Responses" items={data.responses} />
+                <CodeSnippets className="mt-10 w-full" title="Response" items={data.responses} />
               )}
 
               {!data.responses && !!defaultResponses.length && (
-                <CodeSnippets className="mt-10 w-full" title="Responses" items={defaultResponses} />
+                <CodeSnippets className="mt-10 w-full" title="Response" items={defaultResponses} />
               )}
             </div>
           </div>
