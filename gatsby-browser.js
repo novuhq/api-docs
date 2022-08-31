@@ -4,5 +4,11 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-// You can delete this file if you're not using it
+import getPathWithoutPrefix from 'utils/get-path-without-prefix';
+import scrollToSection from 'utils/scroll-to-section';
 import './src/styles/main.css';
+
+export const onClientEntry = () => {
+  const id = getPathWithoutPrefix(window.location.pathname);
+  scrollToSection(id);
+};

@@ -59,6 +59,7 @@ module.exports = {
         9: '#CCCCCC',
         10: '#E6E6E6',
         11: '#F5F5F5',
+        12: '#FAFAFA',
       },
     }),
     screens: {

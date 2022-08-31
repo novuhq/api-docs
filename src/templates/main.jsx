@@ -45,7 +45,7 @@ const MainPage = ({
   };
 
   return (
-    <Layout pageContext={{ ...pageContext, menu }} location={location}>
+    <Layout pageContext={{ ...pageContext, menu }} location={location} seo={pageContext.seo}>
       {/* API Reference pages */}
       <Overview {...apiReferencePages.overview} />
       <SectionWithContent {...apiReferencePages.clientLibraries} />

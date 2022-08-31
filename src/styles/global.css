@@ -1,6 +1,10 @@
 @layer base {
   body {
-    @apply min-w-[320px] bg-[#FAFAFA] font-sans text-base leading-normal text-black antialiased dark:bg-black dark:text-white;
+    @apply min-w-[320px] bg-gray-12 font-sans text-base leading-normal text-black antialiased dark:bg-black dark:text-white;
     -webkit-tap-highlight-color: transparent;
   }
+}
+
+.ais-Highlight-highlighted {
+  @apply bg-transparent text-primary-2 dark:text-primary-1;
 }
