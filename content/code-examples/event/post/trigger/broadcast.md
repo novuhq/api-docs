@@ -30,5 +30,5 @@ curl -X POST \
     },
     "transactionId": "transactionId"
   }' \
-https://api.novu.app/v1/events/trigger/brodcast
+https://api.novu.co/v1/events/trigger/brodcast
 ```
