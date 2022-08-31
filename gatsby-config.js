@@ -88,7 +88,12 @@ module.exports = {
     },
     'gatsby-alias-imports',
     'gatsby-plugin-postcss',
-    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        output: '/',
+      },
+    },
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
