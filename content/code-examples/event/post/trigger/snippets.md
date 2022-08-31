@@ -37,5 +37,5 @@ curl -X POST \
     "to": "to",
     "transactionId": "transactionId"
   }' \
-https://api.novu.app/v1/events/trigger
+https://api.novu.co/v1/events/trigger
 ```

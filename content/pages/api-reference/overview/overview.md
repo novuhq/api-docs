@@ -1,7 +1,7 @@
 ---
 title: Overview
 slug: overview
-baseUrl: https://api.novu.app/v1
+baseUrl: https://api.novu.co/v1
 sort: 1
 ---
 

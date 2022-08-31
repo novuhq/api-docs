@@ -6,7 +6,7 @@ const generateSnippets = ({ method, endpoint, parameters }) => [
     language: 'javascript',
     content: `import fetch from 'node-fetch';
 
-const response = await fetch('https://api.novu.app${endpoint}', {
+const response = await fetch('https://api.novu.co${endpoint}', {
   method: '${method.toUpperCase()}',
   ${
     method !== 'get' && parameters?.body?.properties
@@ -45,14 +45,14 @@ const data = await response.json();
         .join(',\n      ')}
     }' \\\n`
         : ''
-    }https://api.novu.app${endpoint}`,
+    }https://api.novu.co${endpoint}`,
   },
   {
     label: 'Python',
     language: 'python',
     content: `import requests
 
-response = requests.${method.toLowerCase()}('https://api.novu.app${endpoint}'${
+response = requests.${method.toLowerCase()}('https://api.novu.co${endpoint}'${
       parameters?.body?.properties
         ? `, json={
       ${Object.keys(parameters?.body?.properties)
@@ -82,7 +82,7 @@ print(response.json())
     content: `require 'net/http'
 require 'uri'
 
-uri = URI.parse('https://api.novu.app${endpoint}')
+uri = URI.parse('https://api.novu.co${endpoint}')
 http = Net::HTTP.new(uri.host, uri.port)
 request = Net::HTTP::Post.new(uri.request_uri)
 
@@ -118,7 +118,7 @@ puts response.body
     language: 'php',
     content: `<?php
 
-$url = 'https://api.novu.app${endpoint}';
+$url = 'https://api.novu.co${endpoint}';
 $data = array(
   ${
     parameters?.body?.properties
@@ -164,7 +164,7 @@ import (
 )
 
 func main() {
-  url := "https://api.novu.app${endpoint}"
+  url := "https://api.novu.co${endpoint}"
   data := map[string]string{
     ${
       parameters?.body?.properties
