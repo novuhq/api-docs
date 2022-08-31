@@ -91,6 +91,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sitemap',
       options: {
+        resolveSiteUrl: () => 'https://docs.novu.co/',
         output: '/',
       },
     },
