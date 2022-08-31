@@ -52,11 +52,6 @@ async function createPages({ graphql, actions, menu, pages }) {
       },
     });
   });
-
-  createRedirect({
-    fromPath: '/api',
-    toPath: '/overview',
-  });
 }
 
 async function createNotFoundPage({ actions, menu }) {
