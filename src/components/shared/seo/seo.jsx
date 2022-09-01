@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-const SEO = ({ title, description }) => {
+const SEO = ({ title, description, slug }) => {
   const {
     site: {
       siteMetadata: { siteTitle, siteDescription, siteUrl, siteImage, siteLanguage },
@@ -24,6 +24,7 @@ const SEO = ({ title, description }) => {
 
   const currentTitle = title ? `${title} - ${siteTitle}` : siteTitle;
   const currentDescription = description ?? siteDescription;
+  const currentUrl = slug ? `https://docs.novu.co/api/${slug}/` : 'https://docs.novu.co/api/';
 
   return (
     <Helmet
@@ -38,7 +39,7 @@ const SEO = ({ title, description }) => {
       {/* Open Graph */}
       <meta property="og:title" content={currentTitle} />
       <meta property="og:description" content={currentDescription} />
-      <meta property="og:url" content={siteUrl} />
+      <meta property="og:url" content={currentUrl} />
       <meta property="og:image" content={siteUrl + siteImage} />
       <meta property="og:type" content="website" />
       {/* Twitter */}

@@ -32,6 +32,8 @@ async function createPages({ graphql, actions, menu, pages }) {
           sections: pages,
           seo: {
             title: method.summary,
+            description: method.description,
+            slug: method.slug,
           },
         },
       });
@@ -48,6 +50,7 @@ async function createPages({ graphql, actions, menu, pages }) {
         sections: pages,
         seo: {
           title,
+          slug,
         },
       },
     });
