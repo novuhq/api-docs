@@ -3,7 +3,7 @@ const path = require('path');
 const getAllData = require('./src/utils/get-all-data');
 
 async function createPages({ graphql, actions, menu, pages }) {
-  const { createPage, createRedirect } = actions;
+  const { createPage } = actions;
 
   const {
     data: { customPages },
