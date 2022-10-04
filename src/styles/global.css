@@ -5,6 +5,10 @@
   }
 }
 
+.break-word {
+  word-break: break-word;
+}
+
 .ais-Highlight-highlighted {
   @apply bg-transparent text-primary-2 dark:text-primary-1;
 }

@@ -20,7 +20,7 @@ const MethodWithEndpoint = ({ className, method, endpoint }) => (
     >
       {method}
     </span>
-    <span className="text-md break-all font-book dark:text-gray-10 md:text-base xs:text-sm">
+    <span className="text-md break-word font-book dark:text-gray-10 md:text-base xs:text-sm">
       {endpoint}
     </span>
   </div>

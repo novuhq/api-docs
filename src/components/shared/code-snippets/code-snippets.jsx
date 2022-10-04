@@ -76,7 +76,7 @@ const CodeSnippets = ({ className, title, method, endpoint, items }) => {
             <span className="text-xs font-bold uppercase text-gray-2 dark:text-gray-8">
               {method}
             </span>
-            <span className="break-all text-xs text-gray-2 dark:text-gray-8">{endpoint}</span>
+            <span className="break-word text-xs text-gray-2 dark:text-gray-8">{endpoint}</span>
           </div>
         ) : (
           <span className="text-xs font-bold uppercase text-gray-2 dark:text-gray-8">{title}</span>
