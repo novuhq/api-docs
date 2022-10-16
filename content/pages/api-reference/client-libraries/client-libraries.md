@@ -1,7 +1,7 @@
 ---
 title: Client libraries
 slug: client-libraries
-sort: 2
+sort: 3
 ---
 
 Novu offers native SDK in several popular programming languages:
