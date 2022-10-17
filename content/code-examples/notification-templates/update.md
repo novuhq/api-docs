@@ -1,5 +1,5 @@
 ---
-title: Novu create notification template
+title: Novu update notification template
 type: snippets
 ---
 
@@ -8,15 +8,15 @@ import { Novu } from '@novu/node';
 
 export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
 
-await novu.notificationTemplates.create({
+await novu.notificationTemplates.update("templateId", {
     name: "name",
-    notificationGroupId: "notificationGroupId",
     tags: ["tags"],
     description: "description",
+    identifier: "identifier",
     steps: ["steps"],
+    notificationGroupId: "notificationGroupId",
     active: true,
-    draft: true,
     critical: true,
     preferenceSettings: preferenceSettings
-});
+})
 ```
