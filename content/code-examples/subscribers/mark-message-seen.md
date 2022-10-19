@@ -1,6 +1,6 @@
 ---
-title: Novu delete subscriber
-id: delete-/v1/subscribers/:subscriberId
+title: Novu mark message seen
+id: post-/v1/subscribers/:subscriberId/messages/:messageId/seen
 type: snippets
 ---
 
@@ -9,5 +9,5 @@ import { Novu } from '@novu/node';
 
 export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
 
-await novu.subscribers.remove(user.id);
+await novu.subscribers.markMessageSeen(user.id, messageId);
 ```

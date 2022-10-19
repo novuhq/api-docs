@@ -1,6 +1,6 @@
 ---
 title: Novu update subscriber
-id: put-/v1/subscribers
+id: put-/v1/subscribers/:subscriberId
 type: snippets
 ---
 
