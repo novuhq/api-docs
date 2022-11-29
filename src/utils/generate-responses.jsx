@@ -3,6 +3,10 @@ import getValueForParameter from './get-value-for-parameter';
 const generateResponses = (responses) => {
   const items = responses
     .map((response) => {
+      if (!response.schema) {
+        return null;
+      }
+
       const {
         schema: { properties, items },
       } = response;

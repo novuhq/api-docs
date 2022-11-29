@@ -22,8 +22,8 @@ const getAllData = async () => {
         id: `${method}-${path}`,
         method,
         endpoint: path.replace(/{/g, ':').replace(/}/g, ''),
-        tag: paths[path][method].tags[0],
-        slug: paths[path][method].summary.replace(/\s/g, '-').toLowerCase(),
+        tag: paths[path][method]?.tags?.[0],
+        slug: paths[path][method]?.summary?.replace(/\s/g, '-').toLowerCase(),
         parameters: {
           path: paths[path][method].parameters.filter((param) => param.in === PARAMETER_TYPES.path),
           query: paths[path][method].parameters.filter(
@@ -42,6 +42,8 @@ const getAllData = async () => {
         }),
       })),
     }))
+
+    .filter((page) => page.methods.some((method) => method.tag && method.summary))
     .sort((a, b) => {
       const aIndex = tags.findIndex((tag) => tag.name === a.methods[0].tag);
       const bIndex = tags.findIndex((tag) => tag.name === b.methods[0].tag);
