@@ -1,6 +1,8 @@
 const fetch = require(`node-fetch`);
 const SwaggerParser = require('@apidevtools/swagger-parser');
 
+const { URL } = require('../config');
+
 const PARAMETER_TYPES = {
   path: 'path',
   query: 'query',
@@ -8,7 +10,7 @@ const PARAMETER_TYPES = {
 };
 
 const getAllData = async () => {
-  const dataSwagger = await fetch('https://api.novu.co/api-json').then((response) =>
+  const dataSwagger = await fetch(`${URL}/api-json`).then((response) =>
     response.json()
   );
 
