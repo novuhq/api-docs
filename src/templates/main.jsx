@@ -11,6 +11,7 @@ const MainPage = ({
   data: {
     apiReferenceAllPages,
     apiReferenceOverview,
+    apiReferenceApiAuthorization,
     apiReferenceClientLibraries,
     snippets,
     responses,
@@ -37,6 +38,11 @@ const MainPage = ({
       baseUrl: apiReferenceOverview.frontmatter.baseUrl,
       content: apiReferenceOverview.html,
     },
+    apiAuthorization: {
+      id: apiReferenceApiAuthorization.frontmatter.slug,
+      title: apiReferenceApiAuthorization.frontmatter.title,
+      content: apiReferenceApiAuthorization.html,
+    },
     clientLibraries: {
       id: apiReferenceClientLibraries.frontmatter.slug,
       title: apiReferenceClientLibraries.frontmatter.title,
@@ -48,6 +54,7 @@ const MainPage = ({
     <Layout pageContext={{ ...pageContext, menu }} location={location} seo={pageContext.seo}>
       {/* API Reference pages */}
       <Overview {...apiReferencePages.overview} />
+      <SectionWithContent {...apiReferencePages.apiAuthorization} />
       <SectionWithContent {...apiReferencePages.clientLibraries} />
       {/* Swagger pages */}
       <Sections
@@ -84,6 +91,18 @@ export const query = graphql`
       }
       html
     }
+
+    apiReferenceApiAuthorization: markdownRemark(
+      fileAbsolutePath: { regex: "/pages/api-reference/api-authorization/" }
+    ) {
+      id
+      frontmatter {
+        title
+        slug
+      }
+      html
+    }
+
 
     apiReferenceClientLibraries: markdownRemark(
       fileAbsolutePath: { regex: "/pages/api-reference/client-libraries/" }
