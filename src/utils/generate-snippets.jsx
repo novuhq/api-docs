@@ -1,12 +1,12 @@
 import getValueForParameter from './get-value-for-parameter';
 
-const generateSnippets = ({ method, endpoint, parameters }) => [
+const generateSnippets = ({ method, endpoint, parameters, url }) => [
   {
     label: 'Node.js',
     language: 'javascript',
     content: `import fetch from 'node-fetch';
 
-const response = await fetch('https://api.novu.co${endpoint}', {
+const response = await fetch('${url}${endpoint}', {
   method: '${method.toUpperCase()}',
   ${
     method !== 'get' && parameters?.body?.properties
@@ -52,7 +52,7 @@ const data = await response.json();
     language: 'python',
     content: `import requests
 
-response = requests.${method.toLowerCase()}('https://api.novu.co${endpoint}'${
+response = requests.${method.toLowerCase()}('${url}${endpoint}'${
       parameters?.body?.properties
         ? `, json={
       ${Object.keys(parameters?.body?.properties)
@@ -82,7 +82,7 @@ print(response.json())
     content: `require 'net/http'
 require 'uri'
 
-uri = URI.parse('https://api.novu.co${endpoint}')
+uri = URI.parse('${url}${endpoint}')
 http = Net::HTTP.new(uri.host, uri.port)
 request = Net::HTTP::Post.new(uri.request_uri)
 
@@ -118,7 +118,7 @@ puts response.body
     language: 'php',
     content: `<?php
 
-$url = 'https://api.novu.co${endpoint}';
+$url = '${url}${endpoint}';
 $data = array(
   ${
     parameters?.body?.properties
@@ -164,7 +164,7 @@ import (
 )
 
 func main() {
-  url := "https://api.novu.co${endpoint}"
+  url := "${url}${endpoint}"
   data := map[string]string{
     ${
       parameters?.body?.properties
