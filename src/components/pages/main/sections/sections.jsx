@@ -6,6 +6,7 @@ import MethodWithEndpoint from 'components/shared/method-with-endpoint';
 import ParametrWithType from 'components/shared/parametr-with-type';
 import { ResponseCode, RESPONSE_CODE_THEMES } from 'components/shared/response-code';
 import SectionWrapper from 'components/shared/section-wrapper';
+import { getUrlForFrontend } from 'config';
 import generateResponses from 'utils/generate-responses';
 import generateSnippets from 'utils/generate-snippets';
 
@@ -35,7 +36,7 @@ const Sections = ({ sections, snippets, responses }) =>
   sections.map(({ methods }) =>
     methods.map((method) => {
       const data = getFilteredDataForSection(method.id, snippets, responses);
-      const defaultSnippets = generateSnippets(method);
+      const defaultSnippets = generateSnippets({ ...method, url: getUrlForFrontend() });
       const defaultResponses = generateResponses(method.responses);
 
       return (
