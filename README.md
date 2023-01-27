@@ -12,6 +12,7 @@
 
 <h1 align="center">Notification management simplified.</h1>
 
+
 <div align="center">
 The ultimate service for managing multi-channel notifications with a single API.
 </div>
