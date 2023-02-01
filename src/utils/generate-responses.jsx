@@ -1,4 +1,20 @@
-import getValueForParameter from './get-value-for-parameter';
+import { buildPropertyFromAllOf, buildProperty } from './build-properties';
+
+const renderProperties = (properties) =>
+  Object.keys(properties).map((propertyName) => {
+    const property = properties[propertyName];
+
+    if (property.allOf) {
+      return buildPropertyFromAllOf(propertyName, property, property.allOf);
+    }
+
+    return buildProperty(propertyName, property);
+  });
+
+const buildContent = (properties) =>
+  `{
+    ${renderProperties(properties)}
+}`;
 
 const generateResponses = (responses) => {
   const items = responses
@@ -17,15 +33,7 @@ const generateResponses = (responses) => {
         return {
           label: `${response.status}`,
           language: 'json',
-          content: `{
-    ${Object.keys(props)
-      .map((propertyName) => {
-        const { type } = props[propertyName];
-
-        return `${propertyName}: ${getValueForParameter(props[propertyName], type, propertyName)}`;
-      })
-      .join(',\n    ')}
-}`,
+          content: buildContent(props),
         };
       }
 
