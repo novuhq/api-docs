@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SITE_DOMAIN = 'novu.co';
+const SITE_DOMAIN = 'docs.novu.co';
 const PLAUSIBLE_DOMAIN = 'plausible.io';
 const SCRIPT_URI = '/js/script.js';
 
