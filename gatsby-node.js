@@ -24,7 +24,7 @@ async function createPages({ graphql, actions, menu, pages }) {
   pages.forEach((page) => {
     page.methods.forEach((method) => {
       createPage({
-        path: method.slug,
+        path: `/api/${method.slug}`,
         component: path.resolve('./src/templates/main.jsx'),
         context: {
           id: method.id,
@@ -33,7 +33,7 @@ async function createPages({ graphql, actions, menu, pages }) {
           seo: {
             title: method.summary,
             description: method.description,
-            slug: method.slug,
+            slug: `/api/${method.slug}`,
           },
         },
       });
@@ -42,7 +42,7 @@ async function createPages({ graphql, actions, menu, pages }) {
 
   customPages.nodes.forEach(({ frontmatter: { title, slug } }) => {
     createPage({
-      path: slug,
+      path: `/api/${slug}`,
       component: path.resolve('./src/templates/main.jsx'),
       context: {
         id: slug,
@@ -50,7 +50,7 @@ async function createPages({ graphql, actions, menu, pages }) {
         sections: pages,
         seo: {
           title,
-          slug,
+          slug: `/api/${slug}`,
         },
       },
     });
