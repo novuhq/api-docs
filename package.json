@@ -7,7 +7,7 @@
     "start": "npm run develop",
     "develop": "gatsby develop -H 0.0.0.0",
     "build": "gatsby build --prefix-paths",
-    "build:netlify": "gatsby build",
+    "build:netlify": "npm run build && mv public public-tmp && mkdir -p public/api && mv public-tmp/* public/api/",
     "serve": "gatsby serve --prefix-paths",
     "clean": "gatsby clean",
     "format": "prettier --write --ignore-path .gitignore .",

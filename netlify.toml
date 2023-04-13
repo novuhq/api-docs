@@ -2,8 +2,5 @@
   for = "/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
-    Access-Control-Allow-Origin = "*"
 
-[[redirects]]
-  from = "/api/*"
-  to = "/api/:splat"
+
