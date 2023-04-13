@@ -6,7 +6,10 @@
   "scripts": {
     "start": "npm run develop",
     "develop": "gatsby develop -H 0.0.0.0",
-    "build": "gatsby build --prefix-paths",
+    "build": "run-p build:**",
+    "build:app": "npm run clean && gatsby build --prefix-paths && npm run move",
+    "build:lambda": "netlify-lambda build src/lambda",
+    "move": "cd public && mkdir api | mv * api",
     "serve": "gatsby serve --prefix-paths",
     "clean": "gatsby clean",
     "format": "prettier --write --ignore-path .gitignore .",
