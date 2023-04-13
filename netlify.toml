@@ -5,4 +5,4 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "/:splat"
+  to = "/api/:splat"
