@@ -11,7 +11,7 @@ module.exports = {
     siteTitle: 'Novu API Reference',
     siteDescription:
       'Novu is an open-source notification infrastructure built for the engineering teams to help them build rich product notification experiences without constantly re-inventing the wheel.',
-    siteImage: '/images/social-preview.jpg',
+    siteImage: '/api/images/social-preview.jpg',
     siteLanguage: 'en',
     siteUrl: process.env.GATSBY_DEFAULT_SITE_URL || 'http://localhost:8000',
     authorName: 'Pixel Point',
