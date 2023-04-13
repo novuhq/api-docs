@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run develop",
     "develop": "gatsby develop -H 0.0.0.0",
-    "build": "run-p build:**",
+    "build": "gatsby build --prefix-paths",
+    "build:netlify": "run-p build:**",
     "build:app": "npm run clean && gatsby build --prefix-paths && npm run move",
     "build:lambda": "netlify-lambda build src/lambda",
     "move": "cd public && mkdir api | mv * api",
@@ -70,6 +71,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.1",
     "markdownlint-cli": "^0.31.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.14",
     "postcss-import": "^14.1.0",
     "prettier": "^2.7.0",
