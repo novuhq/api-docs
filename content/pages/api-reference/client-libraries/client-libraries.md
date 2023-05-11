@@ -12,3 +12,4 @@ Novu offers native SDK in several popular programming languages:
 - [Ruby](https://github.com/novuhq/novu-ruby)
 - [Kotlin](https://github.com/novuhq/novu-kotlin)
 - [Python](https://github.com/novuhq/novu-python)
+- [.Net](https://github.com/novuhq/novu-dotnet)
