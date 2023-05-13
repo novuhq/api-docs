@@ -2,6 +2,7 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 
+import ApiAuthorization from 'components/pages/api-reference/api-authorization';
 import Overview from 'components/pages/api-reference/overview';
 import Sections from 'components/pages/main/sections';
 import Layout from 'components/shared/layout';
@@ -41,6 +42,7 @@ const MainPage = ({
     apiAuthorization: {
       id: apiReferenceApiAuthorization.frontmatter.slug,
       title: apiReferenceApiAuthorization.frontmatter.title,
+      headerFormat: apiReferenceApiAuthorization.frontmatter.headerFormat,
       content: apiReferenceApiAuthorization.html,
     },
     clientLibraries: {
@@ -54,7 +56,7 @@ const MainPage = ({
     <Layout pageContext={{ ...pageContext, menu }} location={location} seo={pageContext.seo}>
       {/* API Reference pages */}
       <Overview {...apiReferencePages.overview} />
-      <SectionWithContent {...apiReferencePages.apiAuthorization} />
+      <ApiAuthorization {...apiReferencePages.apiAuthorization} />
       <SectionWithContent {...apiReferencePages.clientLibraries} />
       {/* Swagger pages */}
       <Sections
@@ -99,10 +101,10 @@ export const query = graphql`
       frontmatter {
         title
         slug
+        headerFormat
       }
       html
     }
-
 
     apiReferenceClientLibraries: markdownRemark(
       fileAbsolutePath: { regex: "/pages/api-reference/client-libraries/" }
