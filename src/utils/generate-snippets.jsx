@@ -1,4 +1,20 @@
+import { buildPropertyFromAllOf } from './build-properties';
 import getValueForParameter from './get-value-for-parameter';
+
+const buildParameters = (parameters, addQuotes) =>
+  Object.keys(parameters?.body?.properties)
+    .map((name) => {
+      const property = parameters.body.properties[name];
+      const { type, allOf } = property;
+      const escapedName = addQuotes ? `"${name}"` : `${name}`;
+      if (allOf) {
+        return buildPropertyFromAllOf(name, property, allOf);
+      }
+
+      return `${escapedName}: ${getValueForParameter(property, type, name)}`;
+    })
+    .filter((item) => !!item)
+    .join(',\n    ');
 
 const generateSnippets = ({ method, endpoint, parameters, url }) => [
   {
@@ -15,14 +31,8 @@ const response = await fetch('${url}${endpoint}', {
     'Authorization': 'ApiKey REPLACE_WITH_API_KEY',
   },
   body: JSON.stringify({
-    ${Object.keys(parameters?.body?.properties)
-      .map((name) => {
-        const { type } = parameters.body.properties[name];
-        return `${name}: ${getValueForParameter(parameters.body.properties[name], type, name)}`;
-      })
-      .filter((item) => !!item)
-      .join(',\n    ')}
-  }),`
+    ${buildParameters(parameters)},
+  })`
       : ''
   }
 });
@@ -36,14 +46,8 @@ const data = await response.json();
       parameters?.body?.properties
         ? ` -H "Content-Type: application/json" \\\n -d ` +
           `'{
-      ${Object.keys(parameters?.body?.properties)
-        .map((name) => {
-          const { type } = parameters.body.properties[name];
-          return `"${name}": ${getValueForParameter(parameters.body.properties[name], type, name)}`;
-        })
-        .filter((item) => !!item)
-        .join(',\n      ')}
-    }' \\\n`
+    ${buildParameters(parameters, true)}
+  }' \\\n`
         : ''
     }https://api.novu.co${endpoint}`,
   },
@@ -55,17 +59,7 @@ const data = await response.json();
 response = requests.${method.toLowerCase()}('${url}${endpoint}'${
       parameters?.body?.properties
         ? `, json={
-      ${Object.keys(parameters?.body?.properties)
-        .map((name) => {
-          const { type } = parameters.body.properties[name];
-          return `"${name}": ${getValueForParameter(
-            parameters.body.properties[name],
-            type,
-            name
-          )},`;
-        })
-        .filter((item) => !!item)
-        .join(',\n      ')}\n` +
+    ${buildParameters(parameters, true)}\n` +
           `}, headers={
     'Content-Type': 'application/json'
     'Authorization': 'ApiKey REPLACE_WITH_API_KEY'
@@ -87,21 +81,7 @@ http = Net::HTTP.new(uri.host, uri.port)
 request = Net::HTTP::Post.new(uri.request_uri)
 
 request.body = '{
-  ${
-    parameters?.body?.properties
-      ? Object.keys(parameters?.body?.properties)
-          .map((name) => {
-            const { type } = parameters.body.properties[name];
-            return `"${name}": ${getValueForParameter(
-              parameters.body.properties[name],
-              type,
-              name
-            )}`;
-          })
-          .filter((item) => !!item)
-          .join(',\n  ')
-      : '[options]'
-  }
+    ${parameters?.body?.properties ? buildParameters(parameters, true) : '[options]'}
 }'
 request.content_type = 'application/json'
 request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
@@ -120,21 +100,7 @@ puts response.body
 
 $url = '${url}${endpoint}';
 $data = array(
-  ${
-    parameters?.body?.properties
-      ? Object.keys(parameters?.body?.properties)
-          .map((name) => {
-            const { type } = parameters.body.properties[name];
-            return `"${name}": ${getValueForParameter(
-              parameters.body.properties[name],
-              type,
-              name
-            )}`;
-          })
-          .filter((item) => !!item)
-          .join(',\n  ')
-      : '[options]'
-  }
+    ${parameters?.body?.properties ? buildParameters(parameters, true) : '[options]'}
 );
 $options = array(
   "http" => array(
@@ -166,21 +132,7 @@ import (
 func main() {
   url := "${url}${endpoint}"
   data := map[string]string{
-    ${
-      parameters?.body?.properties
-        ? Object.keys(parameters?.body?.properties)
-            .map((name) => {
-              const { type } = parameters.body.properties[name];
-              return `"${name}": ${getValueForParameter(
-                parameters.body.properties[name],
-                type,
-                name
-              )}`;
-            })
-            .filter((item) => !!item)
-            .join(',\n    ')
-        : '[options]'
-    }
+    ${parameters?.body?.properties ? buildParameters(parameters, true) : '[options]'}
   }
   jsonValue, _ := json.Marshal(data)
   req, _ := http.NewRequest("${method.toUpperCase()}", url, bytes.NewBuffer(jsonValue))

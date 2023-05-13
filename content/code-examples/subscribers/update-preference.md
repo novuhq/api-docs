@@ -11,7 +11,7 @@ export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
 
 await novu.subscribers.updatePreference(user.id, templateId, {
   channel: {
-    type: 'fcm',
+    type: 'email',
     enabled: true,
   },
   enabled: true,
