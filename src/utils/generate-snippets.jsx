@@ -23,9 +23,12 @@ const response = await fetch('${url}${endpoint}', {
       .filter((item) => !!item)
       .join(',\n    ')}
   }),`
-      : ''
+      : `headers: {
+    'Authorization': 'ApiKey REPLACE_WITH_API_KEY',
+  }`
   }
 });
+
 const data = await response.json();
     `,
   },
