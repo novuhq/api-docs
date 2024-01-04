@@ -1,7 +1,8 @@
 <!--
---- Readme.md Snippet without images Start ---
+&lt;--- Readme.md Snippet without images Start ---&gt;
 ## Tech Stack
 novuhq/api-docs is built on the following main stack:
+
 - [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
 - [React](https://reactjs.org/) – Javascript UI Libraries
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
@@ -14,11 +15,13 @@ novuhq/api-docs is built on the following main stack:
 - [GitHub Actions](https://github.com/features/actions) – Continuous Integration
 
 Full tech stack [here](/techstack.md)
---- Readme.md Snippet without images End ---
 
---- Readme.md Snippet with images Start ---
+&lt;--- Readme.md Snippet without images End ---&gt;
+
+&lt;--- Readme.md Snippet with images Start ---&gt;
 ## Tech Stack
 novuhq/api-docs is built on the following main stack:
+
 - <img width='25' height='25' src='https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png' alt='Node.js'/> [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
 - <img width='25' height='25' src='https://img.stackshare.io/service/1020/OYIaJ1KK.png' alt='React'/> [React](https://reactjs.org/) – Javascript UI Libraries
 - <img width='25' height='25' src='https://img.stackshare.io/service/1209/javascript.jpeg' alt='JavaScript'/> [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
@@ -31,14 +34,15 @@ novuhq/api-docs is built on the following main stack:
 - <img width='25' height='25' src='https://img.stackshare.io/service/11563/actions.png' alt='GitHub Actions'/> [GitHub Actions](https://github.com/features/actions) – Continuous Integration
 
 Full tech stack [here](/techstack.md)
---- Readme.md Snippet with images End ---
+
+&lt;--- Readme.md Snippet with images End ---&gt;
 -->
 <div align="center">
 
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [novuhq/api-docs](https://github.com/novuhq/api-docs)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|42<br/>Tools used|11/09/23 <br/>Report generated|
+|44<br/>Tools used|01/04/24 <br/>Report generated|
 |------|------|
 </div>
 
@@ -188,9 +192,9 @@ Full tech stack [here](/techstack.md)
 </table>
 
 
-## <img src='https://img.stackshare.io/group.svg' /> Open source packages (27)</h2>
+## <img src='https://img.stackshare.io/group.svg' /> Open source packages (29)</h2>
 
-## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (27)
+## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (29)
 
 |NAME|VERSION|LAST UPDATED|LAST UPDATED BY|LICENSE|VULNERABILITIES|
 |:------|:------|:------|:------|:------|:------|
@@ -212,6 +216,8 @@ Full tech stack [here](/techstack.md)
 |[gatsby-source-filesystem](https://www.npmjs.com/gatsby-source-filesystem)|v4.25.0|04/13/23|Andrew Golovanov |MIT|N/A|
 |[gatsby-transformer-remark](https://www.npmjs.com/gatsby-transformer-remark)|v5.25.1|04/13/23|Andrew Golovanov |MIT|N/A|
 |[gatsby-transformer-sharp](https://www.npmjs.com/gatsby-transformer-sharp)|v4.25.0|04/13/23|Andrew Golovanov |MIT|N/A|
+|[husky](https://www.npmjs.com/husky)|v8.0.3|08/17/22|Andrew Golovanov |MIT|N/A|
+|[lint-staged](https://www.npmjs.com/lint-staged)|v13.1.0|08/17/22|Andrew Golovanov |MIT|N/A|
 |[markdownlint-cli](https://www.npmjs.com/markdownlint-cli)|v0.31.1|08/17/22|Andrew Golovanov |MIT|N/A|
 |[node-fetch](https://www.npmjs.com/node-fetch)|v2.6.7|01/17/23|Dima Grossman |MIT|N/A|
 |[postcss](https://www.npmjs.com/postcss)|v8.4.21|08/17/22|Andrew Golovanov |MIT|[CVE-2023-44270](https://github.com/advisories/GHSA-7fh5-64p2-3v2j) (Moderate)|
@@ -225,4 +231,4 @@ Full tech stack [here](/techstack.md)
 <br/>
 <div align='center'>
 
-Generated via [Stack File](https://github.com/apps/stack-file)
+Generated via [Stack File](https://github.com/marketplace/stack-file)
