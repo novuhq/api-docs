@@ -2,7 +2,7 @@ repo_name: novuhq/api-docs
 report_id: b95457101930b7c8fb6963c37b230255
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T09:22:42+00:00'
+timestamp: '2024-02-29T18:06:09+00:00'
 requested_by: jainpawan21
 provider: github
 branch: main
@@ -118,7 +118,7 @@ tools:
   last_updated_by: Andrew Golovanov
   last_updated_on: 2022-08-30 10:09:41.000000000 Z
 - name: Prettier
-  description: 'Prettier is an opinionated code formatter. '
+  description: Prettier is an opinionated code formatter.
   website_url: https://prettier.io/
   version: 2.8.3
   license: MIT
